@@ -54,7 +54,7 @@ body{
   overflow:hidden;
 }
 .sheet.full{height:10in;}
-@media (max-width:760px){
+@media screen and (max-width:760px){
   body{padding:0 6px;}
   .sheet{width:100%; padding:14px;}
   .sheet.full{height:auto; min-height:9in;}
@@ -94,6 +94,34 @@ body{
   font-size:13px; line-height:1.55;
 }
 .helpbar b{color:var(--marigold);}
+
+/* ============ PARTY TIMER (screen only) ============ */
+.timerbar{
+  max-width:7.4in; margin:14px auto 0;
+  background:var(--ink); color:var(--paper);
+  border-radius:14px; padding:12px 18px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+}
+.timerbar .tb-title{font-family:var(--display); font-size:16px; letter-spacing:.5px; text-shadow:2px 2px 0 var(--pool);}
+.timerbar label{font-size:12.5px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; display:flex; align-items:center; gap:5px;}
+.timerbar input{
+  width:58px; font-family:var(--body); font-weight:800; font-size:14px; text-align:center;
+  color:var(--ink); background:var(--paper); border:2px solid var(--paper); border-radius:8px; padding:4px 2px;
+}
+.timerbar button{
+  font-family:var(--body); font-weight:800; font-size:12.5px; letter-spacing:.4px; text-transform:uppercase;
+  color:#fff; background:var(--pool); border:2px solid var(--pool); border-radius:999px;
+  padding:7px 16px; cursor:pointer;
+}
+.timerbar button:hover{filter:brightness(1.1);}
+.timerbar button:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
+.tb-phase{font-size:12.5px; font-weight:700; flex:1; min-width:150px;}
+.tb-clock{
+  font-family:var(--display); font-size:30px; min-width:86px; text-align:center;
+  background:var(--paper); color:var(--ink); border-radius:10px; padding:1px 12px 3px;
+}
+.tb-clock[data-phase="peek"]{color:var(--pool);}
+.tb-clock[data-phase="draw"]{color:var(--poppy);}
 
 /* ============ SHARED PARTS ============ */
 .eyebrow{
@@ -152,6 +180,10 @@ svg.draw{stroke:var(--ink); stroke-width:7; fill:none; stroke-linecap:round; str
 .bigfact .n{font-family:var(--display); font-size:40px; line-height:1;}
 .bigfact .l{font-weight:800; font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase; margin-top:4px;}
 .bigfact.c1 .n{color:var(--pool);} .bigfact.c2 .n{color:var(--marigold);} .bigfact.c3 .n{color:var(--poppy);}
+.writein{
+  display:inline-block; width:.72in; height:.44in;
+  border:3px dashed currentColor; border-radius:9px; vertical-align:middle; margin-right:4px;
+}
 .matstrip{
   background:var(--ink); color:var(--paper); border-radius:16px;
   padding:.14in .2in; display:flex; justify-content:space-between; align-items:center; gap:12px;
@@ -241,7 +273,7 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
 .shapecard header .el{font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase;}
 .shapecard .art{padding:.05in .1in .09in; display:flex; justify-content:center;}
 .shapecard svg{height:2.28in; width:100%;}
-@media (max-width:760px){ .cardgrid{grid-template-columns:1fr;} .shapecard svg{height:auto; aspect-ratio:1;} }
+@media screen and (max-width:760px){ .cardgrid{grid-template-columns:1fr;} .shapecard svg{height:auto; aspect-ratio:1;} }
 
 /* ============ OPEN BOOK ============ */
 .bookhead{text-align:center; margin-bottom:.1in;}
@@ -249,19 +281,19 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
 .bookhead p{font-size:11.5px; font-weight:700; margin-top:4px;}
 .bookhead p b{background:var(--marigold-soft); padding:0 5px; border-radius:4px;}
 .bk-label{
-  font-family:var(--display); font-size:13.5px; letter-spacing:.6px; margin:.1in 0 .06in;
+  font-family:var(--display); font-size:13.5px; letter-spacing:.6px; margin:.07in 0 .05in;
   display:flex; align-items:center; gap:8px;
 }
 .bk-label::after{content:""; flex:1; border-top:2.5px dashed var(--ink); opacity:.5;}
 .booktiles{display:grid; grid-template-columns:repeat(6,1fr); gap:.08in;}
 .tile{border:2.5px solid var(--ink); border-radius:11px; background:#fff; text-align:center; padding:5px 3px 6px; break-inside:avoid;}
-.tile svg{height:.5in; width:100%;}
+.tile svg{height:.42in; width:100%;}
 .tile .nm{font-size:8.6px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; margin-top:2px; line-height:1.15;}
 .sizes{display:flex; align-items:flex-end; justify-content:space-around; border:2.5px solid var(--ink); border-radius:12px; background:#fff; padding:8px 10px 9px;}
 .sz{display:flex; flex-direction:column; align-items:center; gap:5px; font-size:9px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; text-align:center;}
 .sz .dot{border:3.5px solid var(--ink); border-radius:50%;}
 .bk-bottom{display:grid; grid-template-columns:2.45in 1fr; gap:.15in; align-items:stretch;}
-.posmap{border:3px solid var(--ink); border-radius:12px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr 1fr; grid-auto-rows:1fr; background:#fff; min-height:2.7in;}
+.posmap{border:3px solid var(--ink); border-radius:12px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr 1fr; grid-auto-rows:1fr; background:#fff; min-height:2.5in;}
 .posmap div{border:1.2px solid var(--ink); display:flex; align-items:center; justify-content:center; text-align:center; font-size:8.4px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; padding:3px; line-height:1.3;}
 .posmap div.center{background:var(--marigold-soft); font-family:var(--display); font-size:11px; letter-spacing:.6px;}
 .reltiles{display:grid; grid-template-columns:1fr 1fr; gap:.08in;}
@@ -269,7 +301,7 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
 .rel svg{width:.78in; height:.44in; flex:none;}
 .rel .nm{font-size:9.3px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; line-height:1.25;}
 .saypro{
-  margin-top:.12in; background:var(--ink); color:var(--paper); border-radius:14px;
+  margin-top:.08in; background:var(--ink); color:var(--paper); border-radius:14px;
   padding:.1in .16in; font-size:11.5px; font-weight:700; line-height:1.5;
 }
 .saypro b{color:var(--marigold);}
@@ -357,6 +389,15 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
   and print <b>two copies of the Open Book</b> per table — one for the Guide, one for the Artist. Everything also prints fine in black &amp; white.
 </div>
 
+<div class="timerbar no-print" role="group" aria-label="Party timer">
+  <span class="tb-title">⏱ PARTY TIMER</span>
+  <label for="peekSecs">Peek <input id="peekSecs" type="number" min="3" max="120" value="10"> s</label>
+  <label for="drawSecs">Draw <input id="drawSecs" type="number" min="10" max="600" value="60"> s</label>
+  <button id="timerBtn" onclick="toggleTimer()">▶ Start round</button>
+  <span class="tb-phase" id="timerPhase">Your house rules — set any times you like (classic: 10 &amp; 60).</span>
+  <span class="tb-clock" id="timerClock">—</span>
+</div>
+
 <!-- ================= POSTER 1: MAIN ================= -->
 <section class="sheet full g-posters">
   <div class="poster">
@@ -374,12 +415,12 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
       <span class="stamp" style="color:var(--poppy)">NO “HOUSE.” NO “ICE CREAM.” SHAPES ONLY.</span>
     </div>
     <div class="badge3">
-      <div class="bigfact c1"><div class="n">10<span style="font-size:22px">s</span></div><div class="l">to memorize the card</div></div>
-      <div class="bigfact c2"><div class="n">60<span style="font-size:22px">s</span></div><div class="l">to draw &amp; shout it</div></div>
+      <div class="bigfact c1"><div class="n"><span class="writein"></span><span style="font-size:22px">s</span></div><div class="l">to memorize — write in your peek time</div></div>
+      <div class="bigfact c2"><div class="n"><span class="writein"></span><span style="font-size:22px">s</span></div><div class="l">to draw &amp; shout — write in your draw time</div></div>
       <div class="bigfact c3"><div class="n">−1</div><div class="l">per forbidden word</div></div>
     </div>
     <div class="matstrip">
-      <span>YOU’LL NEED → <b>2 pads</b> · <b>2 markers</b> (no erasing — commit!) · <b>1 barrier</b> or back-to-back chairs · <b>1 timer</b> · a room full of judges</span>
+      <span>YOU’LL NEED → <b>2 pads</b> · <b>2 markers</b> (no erasing — commit!) · <b>1 barrier</b> or back-to-back chairs · <b>1 timer</b> set to <b>your own house pace</b> (classic: 10 s peek · 60 s draw) · a room full of judges</span>
     </div>
     <div class="footline"><span>Poster 1 of 3</span><span>Hang me where the shouting happens</span></div>
   </div>
@@ -398,13 +439,13 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
       </div>
       <div class="phase">
         <div class="ico" style="background:var(--pool)">2</div>
-        <div><h3>The 10-second peek</h3>
-        <p>The room goes silent. The Guide flips the top shape card and gets <b>exactly 10 seconds</b> to study it — not just the shapes, but the <b>positions</b>: centered or offset? Touching or overlapping? Then the card goes face-down. No second looks. Ever.</p></div>
+        <div><h3>The lightning peek</h3>
+        <p>The room goes silent. The Guide flips the top shape card and gets <b>one short peek — your table picks the seconds</b> (classic: 10) — to study it: not just the shapes, but the <b>positions</b>. Centered or offset? Touching or overlapping? Then the card goes face-down. No second looks. Ever.</p></div>
       </div>
       <div class="phase">
         <div class="ico" style="background:var(--marigold)">3</div>
-        <div><h3>The 60-second chaos</h3>
-        <p>Timer starts. The Guide <b>draws the picture from memory</b> on their own pad <b>while shouting step-by-step instructions</b>. The Artist draws only what they hear — questions allowed (“HOW BIG IS THE CIRCLE?!”), peeking never.</p></div>
+        <div><h3>The timed chaos</h3>
+        <p>Timer starts — <b>set to whatever your table agreed</b> (classic: 60 s). The Guide <b>draws the picture from memory</b> on their own pad <b>while shouting step-by-step instructions</b>. The Artist draws only what they hear — questions allowed (“HOW BIG IS THE CIRCLE?!”), peeking never.</p></div>
       </div>
       <div class="phase">
         <div class="ico" style="background:var(--poppy)">4</div>
@@ -641,13 +682,19 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
     <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><line x1="20" y1="58" x2="80" y2="12"/></svg><div class="nm">Diagonal line</div></div>
     <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polyline points="12,52 30,20 48,52 66,20 84,52"/></svg><div class="nm">Zigzag</div></div>
     <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><path d="M14,52 Q50,2 86,52"/></svg><div class="nm">Curved line</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polygon points="50,8 56.5,27 76.7,27.6 60.5,39.6 66.3,59 50,47.5 33.7,59 39.5,39.6 23.3,27.6 43.5,27"/></svg><div class="nm">Star</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><path d="M50,60 C24,42 27,14 50,27 C73,14 76,42 50,60 Z"/></svg><div class="nm">Heart</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><line x1="50" y1="10" x2="50" y2="60"/><line x1="25" y1="35" x2="75" y2="35"/></svg><div class="nm">Plus / cross</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polygon points="50,9 74.7,27 65.3,56 34.7,56 25.3,27"/></svg><div class="nm">Pentagon</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polygon points="50,7 72.5,20 72.5,48 50,61 27.5,48 27.5,20"/></svg><div class="nm">Hexagon</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><circle cx="50" cy="34" r="8" style="fill:var(--ink)"/></svg><div class="nm">Dot (filled)</div></div>
   </div>
 
   <div class="bk-label">The sizes</div>
   <div class="sizes">
-    <div class="sz"><span class="dot" style="width:.26in;height:.26in"></span>Small<br><span style="opacity:.6">≈ a coin (1 in)</span></div>
-    <div class="sz"><span class="dot" style="width:.48in;height:.48in"></span>Medium<br><span style="opacity:.6">≈ a fist (2–3 in)</span></div>
-    <div class="sz"><span class="dot" style="width:.78in;height:.78in"></span>Large<br><span style="opacity:.6">≈ half the page (4 in +)</span></div>
+    <div class="sz"><span class="dot" style="width:.24in;height:.24in"></span>Small<br><span style="opacity:.6">≈ a coin (1 in)</span></div>
+    <div class="sz"><span class="dot" style="width:.42in;height:.42in"></span>Medium<br><span style="opacity:.6">≈ a fist (2–3 in)</span></div>
+    <div class="sz"><span class="dot" style="width:.64in;height:.64in"></span>Large<br><span style="opacity:.6">≈ half the page (4 in +)</span></div>
     <div class="sz" style="max-width:1.7in; text-align:left; align-items:flex-start"><span style="font-size:9.5px; line-height:1.5; text-transform:none; letter-spacing:0; font-weight:700">Guides: call the size <em>every time</em>. Your “square” is 2 inches. Theirs is 6. That ruins everything.</span></div>
   </div>
 
@@ -691,7 +738,7 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
     <div class="subtitle t3">★ Grand Champions ★</div>
     <div class="to">Awarded to</div>
     <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
-    <p class="flavor">who, armed with a <b>10-second peek</b> and <b>60 seconds of shouting</b>, produced a drawing the entire room recognized — achieving a level of two-person telepathy that is honestly a little unsettling. Highest grand total of the night. Undisputed. Insufferable. <b>Champions.</b></p>
+    <p class="flavor">who, armed with <b>one lightning peek</b> and <b>a single timed round of shouting</b>, produced a drawing the entire room recognized — achieving a level of two-person telepathy that is honestly a little unsettling. Highest grand total of the night. Undisputed. Insufferable. <b>Champions.</b></p>
     <div class="statline">Final score <span class="box"></span></div>
     <span class="stamp" style="color:var(--poppy); margin-bottom:.24in">CERTIFIED CHAOS-PROOF</span>
     <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
@@ -789,6 +836,73 @@ function printKit(group){
   window.print();
 }
 window.addEventListener('afterprint', function(){ document.body.removeAttribute('data-print'); });
+
+/* Allow ?print=<section> so headless browsers can export per-section PDFs. */
+(function(){
+  var p = new URLSearchParams(location.search).get('print');
+  if(p){ document.body.setAttribute('data-print', p); }
+})();
+
+/* ---- Party timer: peek phase, then draw phase, with beeps ---- */
+var timerId = null;
+
+function beep(freq, dur, times){
+  try{
+    var ctx = beep.ctx || (beep.ctx = new (window.AudioContext || window.webkitAudioContext)());
+    for(var i = 0; i < times; i++){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq;
+      var t = ctx.currentTime + i * 0.28;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.3, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.start(t); o.stop(t + dur + 0.05);
+    }
+  }catch(e){ /* no audio available — timer still works silently */ }
+}
+
+function readSecs(id, fallback){
+  var el = document.getElementById(id);
+  var v = parseInt(el.value, 10);
+  if(!(v > 0)){ v = fallback; el.value = fallback; }
+  return v;
+}
+
+function toggleTimer(){
+  if(timerId){ stopTimer('Stopped — set your times and go again!'); return; }
+  runPhase('peek');
+}
+
+function stopTimer(msg){
+  clearInterval(timerId); timerId = null;
+  document.getElementById('timerBtn').textContent = '▶ Start round';
+  document.getElementById('timerPhase').textContent = msg;
+  var clock = document.getElementById('timerClock');
+  clock.textContent = '—'; clock.removeAttribute('data-phase');
+}
+
+function runPhase(phase){
+  var left = phase === 'peek' ? readSecs('peekSecs', 10) : readSecs('drawSecs', 60);
+  var clock = document.getElementById('timerClock');
+  document.getElementById('timerBtn').textContent = '■ Stop';
+  document.getElementById('timerPhase').textContent =
+    phase === 'peek' ? 'PEEK! Guide, study that card…' : 'DRAW & SHOUT! Shapes only!';
+  clock.setAttribute('data-phase', phase);
+  beep(phase === 'peek' ? 660 : 880, 0.15, 1);
+  var tick = function(){
+    clock.textContent = left + 's';
+    if(left <= 3 && left > 0){ beep(1200, 0.06, 1); }
+    if(left <= 0){
+      clearInterval(timerId); timerId = null;
+      if(phase === 'peek'){ runPhase('draw'); }
+      else { beep(440, 0.4, 3); stopTimer('MARKERS DOWN! Flip the card and compare. 🎉'); }
+    }
+    left--;
+  };
+  tick();
+  timerId = setInterval(tick, 1000);
+}
 </script>
 </body>
 </html>

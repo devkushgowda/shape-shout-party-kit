@@ -9,10 +9,12 @@ Perfect for families, classrooms, youth groups, office team events, and game nig
 ## 🎲 How it works
 
 1. **Pair up & wall off** — each team is a *Guide* and an *Artist*, back-to-back. No peeking, ever.
-2. **The 10-second peek** — the Guide studies a secret shape card, then it goes face-down.
-3. **The 60-second chaos** — the Guide draws it from memory *while shouting geometric instructions*; the Artist draws only what they hear.
+2. **The lightning peek** — the Guide studies a secret shape card for a few seconds, then it goes face-down. Your table picks the peek time (classic: 10 s).
+3. **The timed chaos** — the Guide draws it from memory *while shouting geometric instructions*; the Artist draws only what they hear. You set the timer (classic: 60 s) — or use the built-in party timer on the website.
 4. **Reveal** — line up the card, the Guide's drawing, and the Artist's drawing. Prepare to be humbled.
 5. **Score & swap** — memory + precision + vibe vote − penalties. Every real-world word ("house!", "snowman!") costs a point.
+
+Timing is a **house rule**: write your chosen peek and draw times on the poster, or use the **⏱ party timer** built into the website — set any times you like and it runs the peek phase and draw phase back-to-back with beeps.
 
 ## 🖨 What's in the kit
 
@@ -21,7 +23,7 @@ Perfect for families, classrooms, youth groups, office team events, and game nig
 | 3 wall posters | The pitch, the rules, and the golden rule |
 | 18 shape cards | 3 difficulty levels (3 / 4 / 5 elements per card) |
 | Team scorecards | 4 rounds per card, 2 cards per page |
-| The Open Book | The shared shape dictionary — print 2 per table |
+| The Open Book | The shared 18-shape dictionary — print 2 per table |
 | 4 award certificates | Champions, precision, people's choice… and most penalties 😅 |
 
 ## 🚀 Two ways to print
