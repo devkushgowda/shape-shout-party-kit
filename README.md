@@ -16,7 +16,15 @@ Perfect for families, classrooms, youth groups, office team events, and game nig
 
 Timing is a **house rule**: write your chosen peek and draw times on the poster, or use the **⏱ party timer** built into the website — set any times you like and it runs the peek phase and draw phase back-to-back with beeps.
 
-You can even **play fully on screen**: pick a difficulty level (or 🎲 Surprise me) and hit **Flash a card** — the website deals a random secret card, flashes it for the Guide during the peek, hides it for the draw countdown, then reveals it at the end for scoring. Cards don't repeat until the whole level has been played.
+## 🖥 On-screen party tools
+
+The website is a full party console — no printing required to start playing:
+
+- **Flash rounds** — pick a difficulty (Level 1–3 or 🎲 Surprise me) and the screen deals a random secret card: flashed for the peek, hidden for the draw countdown, revealed at the end for scoring. Cards don't repeat until the whole level has been played.
+- **No-flash easy mode** — tick *"keep the card on screen"* and the card stays visible for the whole round; the round is just timed. Great for the youngest players.
+- **⏱ Timer or ⏲ Stopwatch** — run the classic countdown at your own pace, or flip to the stopwatch and *record* how long a team actually took. Times can be saved to a team.
+- **🏆 Teams & leaderboard** — add teams and player names, log each round's score, and watch the live ranking (points first, best time as tiebreaker). Everything is stored on your device only — no accounts, no server — and survives a refresh. One click resets the party.
+- **Export filled-in awards** — pick a team and any of the 10 awards, and print the certificate with the names, score and date already filled in (choose "Save as PDF" in the print dialog to export it).
 
 ## 🖨 What's in the kit
 

@@ -153,6 +153,70 @@ body{
 .tb-clock[data-phase="peek"]{color:var(--pool);}
 .tb-clock[data-phase="draw"]{color:var(--poppy);}
 
+.keepopt{
+  display:flex; align-items:center; gap:8px; margin-top:12px; cursor:pointer;
+  font-size:12px; font-weight:800; letter-spacing:.3px;
+}
+.keepopt input{width:17px; height:17px; accent-color:var(--poppy); cursor:pointer;}
+.watch-save{
+  margin-top:10px; display:flex; flex-wrap:wrap; gap:9px; align-items:center;
+  font-size:13px; font-weight:700;
+}
+.watch-save select{font:inherit; font-weight:700; padding:7px 10px; border:2.5px solid var(--ink); border-radius:10px; background:#fff; color:var(--ink);}
+
+/* teams & leaderboard */
+.team-add{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px;}
+.team-add input{
+  flex:1; min-width:150px; font:inherit; font-weight:700; font-size:13.5px;
+  padding:9px 12px; border:2.5px solid var(--ink); border-radius:10px; background:#fff; color:var(--ink);
+}
+.lb{list-style:none; display:flex; flex-direction:column; gap:8px; margin:6px 0 2px;}
+.lb-row{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:#fff; border:2.5px solid var(--ink); border-radius:13px; padding:8px 12px;
+}
+.lb-row.top{background:var(--marigold-soft);}
+.lb-rank{
+  font-family:var(--display); width:30px; height:30px; border-radius:50%; flex:none;
+  background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-size:15px;
+}
+.lb-row.top .lb-rank{background:var(--marigold); color:var(--ink);}
+.lb-who{flex:1; min-width:130px;}
+.lb-name{display:block; font-family:var(--display); font-size:16px; letter-spacing:.3px;}
+.lb-players{font-size:11px; font-weight:700; opacity:.7;}
+.lb-stats{font-size:12px; font-weight:800; letter-spacing:.3px; white-space:nowrap;}
+.lb-act{display:flex; gap:6px; align-items:center;}
+.lb-pts{
+  width:64px; text-align:center; font:inherit; font-weight:800;
+  border:2.5px solid var(--ink); border-radius:8px; padding:5px 4px; background:#fff; color:var(--ink);
+}
+.icobtn{
+  width:32px; height:32px; border:2.5px solid var(--ink); background:#fff;
+  border-radius:8px; cursor:pointer; font-size:13px; color:var(--ink); line-height:1;
+}
+.icobtn:hover{background:var(--ink-soft);}
+.icobtn.ok{background:var(--pool); border-color:var(--pool); color:#fff;}
+.icobtn.ok:hover{filter:brightness(1.1); background:var(--pool);}
+.icobtn.del:hover{background:var(--poppy-soft);}
+.icobtn:focus-visible,.chip:focus-visible,.team-add input:focus-visible,.lb-pts:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
+.lb-empty{font-size:13px; font-weight:700; opacity:.7; padding:4px 2px;}
+.lb-hint{font-size:12px; font-weight:800; color:var(--poppy); min-height:15px; margin:2px 0;}
+.award-form{border-top:2.5px dashed var(--ink); margin-top:16px; padding-top:14px;}
+.af-grid{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+.af-grid select,.af-grid input{
+  font:inherit; font-weight:700; font-size:13px; max-width:100%;
+  padding:8px 10px; border:2.5px solid var(--ink); border-radius:10px; background:#fff; color:var(--ink);
+}
+.btn-go.small{font-size:14px; padding:7px 16px 9px;}
+.lb-foot{margin-top:14px;}
+
+/* certificate auto-fill (used when printing a single filled-in award) */
+.fill .af{
+  position:absolute; left:0; right:0; bottom:3px; text-align:center;
+  font-family:var(--display); font-size:17px; letter-spacing:.5px;
+}
+.statline .box.af-on{font-family:var(--display); font-size:15px; text-align:center; line-height:.32in;}
+
 /* printing tips */
 .tips{max-width:7.4in; margin:14px auto 0; color:var(--ink);}
 .tips summary{
@@ -450,6 +514,7 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
   body[data-print="cards"]   .sheet.g-cards{display:block !important;}
   body[data-print="book"]    .sheet.g-book{display:block !important;}
   body[data-print="certs"]   .sheet.g-certs{display:block !important;}
+  body[data-print="certone"] .sheet.print-target{display:block !important;}
 }
 </style>
 </head>
@@ -491,11 +556,47 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
   <div class="con-actions">
     <button class="btn-go" onclick="startFlashRound()">▶ FLASH A CARD &amp; PLAY</button>
     <button class="btn-alt" id="timerBtn" onclick="toggleTimer()">⏱ Timer only</button>
+    <button class="btn-alt" id="watchBtn" onclick="toggleWatch()">⏲ Stopwatch</button>
   </div>
+  <label class="keepopt">
+    <input type="checkbox" id="keepCard">
+    No flash — keep the card on screen for the whole round (easy mode / youngest players)
+  </label>
   <div class="con-status">
     <span class="msg" id="timerPhase">Ready when you are. Guides look at the screen alone — Artists, eyes on your pad!</span>
     <span class="tb-clock" id="timerClock">—</span>
   </div>
+  <div class="watch-save" id="watchSave" hidden>
+    <span>Save <b id="watchResult">0.0 s</b> to</span>
+    <select id="watchTeam" aria-label="Team to save the time to"></select>
+    <button class="btn-alt" onclick="saveWatchTime()">Save time</button>
+  </div>
+</section>
+
+<section class="console no-print" aria-label="Teams and leaderboard">
+  <h2>🏆 Teams &amp; leaderboard</h2>
+  <p class="con-sub">Add your teams and keep score for the whole party. Everything stays <b>on this device only</b> — no accounts,
+  no internet — and survives a page refresh. Hit <b>Reset party</b> to start a fresh game night.</p>
+  <div class="team-add">
+    <input id="teamName" placeholder="Team name — e.g. The Wobbly Circles" maxlength="28" onkeydown="if(event.key==='Enter')addTeam()">
+    <input id="teamPlayers" placeholder="Players — e.g. Asha &amp; Ben" maxlength="40" onkeydown="if(event.key==='Enter')addTeam()">
+    <button class="btn-alt" onclick="addTeam()">＋ Add team</button>
+  </div>
+  <p class="lb-hint" id="lbHint" aria-live="polite"></p>
+  <ol class="lb" id="lbList"></ol>
+  <p class="lb-empty" id="lbEmpty">No teams yet — add your first two teams above and let the shouting begin.</p>
+  <div class="award-form">
+    <span class="con-label">Print a filled-in award — choose “Save as PDF” in the print dialog to export it</span>
+    <div class="af-grid">
+      <select id="awardTeam" aria-label="Team to award" onchange="prefillAward()"></select>
+      <select id="awardSel" aria-label="Which award"></select>
+      <input id="awardName1" placeholder="Name line 1" maxlength="26">
+      <input id="awardName2" placeholder="Name line 2" maxlength="26">
+      <input id="awardStat" placeholder="Score / stat" maxlength="14">
+      <button class="btn-go small" onclick="printAward()">🏆 Print award</button>
+    </div>
+  </div>
+  <div class="lb-foot"><button class="btn-alt" onclick="resetParty()">🗑 Reset party</button></div>
 </section>
 
 <details class="tips no-print">
@@ -1086,7 +1187,10 @@ function printKit(group){
   else { document.body.removeAttribute('data-print'); }
   window.print();
 }
-window.addEventListener('afterprint', function(){ document.body.removeAttribute('data-print'); });
+window.addEventListener('afterprint', function(){
+  document.body.removeAttribute('data-print');
+  cleanupAwardPrint();
+});
 
 /* Allow ?print=<section> so headless browsers can export per-section PDFs. */
 (function(){
@@ -1094,8 +1198,8 @@ window.addEventListener('afterprint', function(){ document.body.removeAttribute(
   if(p){ document.body.setAttribute('data-print', p); }
 })();
 
-/* ---- Game console: difficulty picker, card flash, and timers ---- */
-var game = {level:1, mode:null, timerId:null, used:{}, deck:[]};
+/* ================= GAME CONSOLE ================= */
+var game = {level:1, mode:null, timerId:null, used:{}, deck:[], watchStart:0, watchMs:0};
 
 (function buildDeck(){
   document.querySelectorAll('.g-cards').forEach(function(sec){
@@ -1153,29 +1257,47 @@ function drawFromDeck(){
 
 function clearTick(){ if(game.timerId){ clearInterval(game.timerId); game.timerId = null; } }
 
+/* Timestamp-based so the countdown never drifts, even in throttled tabs. */
 function runCountdown(secs, el, phase, onDone){
   clearTick();
-  var left = secs;
+  var end = Date.now() + secs * 1000;
+  var lastShown = null;
   el.setAttribute('data-phase', phase);
   var tick = function(){
-    el.textContent = left + 's';
-    if(left <= 3 && left > 0){ beep(1200, 0.06, 1); }
-    if(left <= 0){ clearTick(); onDone(); return; }
-    left--;
+    var left = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+    if(left !== lastShown){
+      lastShown = left;
+      el.textContent = left + 's';
+      if(left <= 3 && left > 0){ beep(1200, 0.06, 1); }
+    }
+    if(left <= 0){ clearTick(); onDone(); }
   };
   tick();
-  game.timerId = setInterval(tick, 1000);
+  game.timerId = setInterval(tick, 200);
 }
 
 function setStatus(t){ document.getElementById('timerPhase').textContent = t; }
 function setMsg(t){ document.getElementById('foMsg').textContent = t; }
 
-/* Flash round: peek the card on screen, hide it for the draw, reveal to score. */
-function startFlashRound(){
-  if(game.mode === 'timer'){ stopTimer(''); }
+/* Stop whatever is running — flash round, timer, or stopwatch. */
+function stopAll(){
   clearTick();
+  document.getElementById('flashOverlay').hidden = true;
+  document.body.style.overflow = '';
+  document.getElementById('timerBtn').textContent = '⏱ Timer only';
+  document.getElementById('watchBtn').textContent = '⏲ Stopwatch';
+  game.mode = null;
+  var clock = document.getElementById('timerClock');
+  clock.textContent = '—'; clock.removeAttribute('data-phase');
+}
+
+/* Flash round: peek the card on screen, hide it for the draw, reveal to score.
+   With "keep card" checked, the card stays visible the whole round. */
+function startFlashRound(){
+  stopAll();
   game.mode = 'flash';
   var card = drawFromDeck();
+  var keep = document.getElementById('keepCard').checked;
   var stage = document.getElementById('foStage');
   var count = document.getElementById('foCount');
   document.getElementById('foTag').textContent = card.id + ' · LEVEL ' + card.level;
@@ -1183,11 +1305,16 @@ function startFlashRound(){
   document.getElementById('flashOverlay').hidden = false;
   document.body.style.overflow = 'hidden';
   stage.innerHTML = card.svg;
-  setMsg('GUIDE ONLY — memorize the shapes, sizes and positions!');
+  setMsg(keep ? 'Easy mode — the card stays on screen for the whole round. Get ready…'
+              : 'GUIDE ONLY — memorize the shapes, sizes and positions!');
   beep(660, 0.15, 1);
   runCountdown(readSecs('peekSecs', 10), count, 'peek', function(){
-    stage.innerHTML = '<div class="fo-big">🗣️ ✏️</div>';
-    setMsg('DRAW & SHOUT! Shapes only — real-world words cost a point.');
+    if(keep){
+      setMsg('DRAW & SHOUT! The card stays up — describe away, shapes only.');
+    }else{
+      stage.innerHTML = '<div class="fo-big">🗣️ ✏️</div>';
+      setMsg('DRAW & SHOUT! Shapes only — real-world words cost a point.');
+    }
     beep(880, 0.18, 2);
     runCountdown(readSecs('drawSecs', 60), count, 'draw', function(){
       stage.innerHTML = card.svg;
@@ -1195,17 +1322,13 @@ function startFlashRound(){
       count.textContent = '🎉';
       count.removeAttribute('data-phase');
       document.getElementById('foAgain').hidden = false;
+      game.mode = null;
       beep(440, 0.4, 3);
     });
   });
 }
 
-function endFlashRound(){
-  clearTick();
-  game.mode = null;
-  document.getElementById('flashOverlay').hidden = true;
-  document.body.style.overflow = '';
-}
+function endFlashRound(){ stopAll(); }
 
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape' && !document.getElementById('flashOverlay').hidden){ endFlashRound(); }
@@ -1213,8 +1336,8 @@ document.addEventListener('keydown', function(e){
 
 /* Timer only, for tables playing with printed cards. */
 function toggleTimer(){
-  if(game.mode === 'timer'){ stopTimer('Stopped — set your pace and go again!'); return; }
-  if(game.mode === 'flash'){ endFlashRound(); }
+  if(game.mode === 'timer'){ stopAll(); setStatus('Stopped — set your pace and go again!'); return; }
+  stopAll();
   game.mode = 'timer';
   document.getElementById('timerBtn').textContent = '■ Stop timer';
   var clock = document.getElementById('timerClock');
@@ -1225,19 +1348,248 @@ function toggleTimer(){
     beep(880, 0.18, 2);
     runCountdown(readSecs('drawSecs', 60), clock, 'draw', function(){
       beep(440, 0.4, 3);
-      stopTimer('MARKERS DOWN! Flip the card, compare, score. 🎉');
+      stopAll();
+      setStatus('MARKERS DOWN! Flip the card, compare, score. 🎉');
     });
   });
 }
 
-function stopTimer(msg){
-  clearTick();
-  game.mode = null;
-  document.getElementById('timerBtn').textContent = '⏱ Timer only';
+/* Stopwatch: counts up instead of down, and the result can be saved to a team. */
+function fmtSecs(ms){ return (ms / 1000).toFixed(1) + ' s'; }
+
+function toggleWatch(){
+  if(game.mode === 'watch'){
+    var ms = Date.now() - game.watchStart;
+    stopAll();
+    game.watchMs = ms;
+    document.getElementById('timerClock').textContent = fmtSecs(ms);
+    setStatus('Time on the clock! Save it to a team below, or just brag.');
+    beep(440, 0.3, 2);
+    if(party.teams.length){
+      document.getElementById('watchResult').textContent = fmtSecs(ms);
+      refreshTeamSelect('watchTeam');
+      document.getElementById('watchSave').hidden = false;
+    }
+    return;
+  }
+  stopAll();
+  game.mode = 'watch';
+  game.watchStart = Date.now();
+  document.getElementById('watchBtn').textContent = '■ Stop & record';
+  document.getElementById('watchSave').hidden = true;
   var clock = document.getElementById('timerClock');
-  clock.textContent = '—'; clock.removeAttribute('data-phase');
-  if(msg){ setStatus(msg); }
+  clock.setAttribute('data-phase', 'draw');
+  clock.textContent = '0.0 s';
+  setStatus('Stopwatch running — counting UP. Go go go!');
+  beep(660, 0.15, 1);
+  game.timerId = setInterval(function(){
+    clock.textContent = fmtSecs(Date.now() - game.watchStart);
+  }, 100);
 }
+
+function saveWatchTime(){
+  var sel = document.getElementById('watchTeam');
+  var team = party.teams.find(function(t){ return t.id === sel.value; });
+  if(!team || !game.watchMs){ return; }
+  if(team.bestMs == null || game.watchMs < team.bestMs){ team.bestMs = game.watchMs; }
+  saveParty();
+  renderParty();
+  document.getElementById('watchSave').hidden = true;
+  setStatus('Saved ' + fmtSecs(game.watchMs) + ' for “' + team.name + '” — best time kept.');
+}
+
+/* ================= PARTY: teams, scores, leaderboard =================
+   Stored in localStorage on this device only. */
+var PARTY_KEY = 'shapeShoutParty.v1';
+var party = loadParty();
+
+function loadParty(){
+  try{
+    var p = JSON.parse(localStorage.getItem(PARTY_KEY));
+    if(p && Object.prototype.toString.call(p.teams) === '[object Array]'){ return p; }
+  }catch(e){ /* corrupted or unavailable storage — start fresh */ }
+  return {teams: []};
+}
+
+function saveParty(){
+  try{ localStorage.setItem(PARTY_KEY, JSON.stringify(party)); }catch(e){}
+}
+
+function hint(msg){
+  var elx = document.getElementById('lbHint');
+  elx.textContent = msg;
+  clearTimeout(hint.t);
+  if(msg){ hint.t = setTimeout(function(){ elx.textContent = ''; }, 4000); }
+}
+
+function addTeam(){
+  var nameEl = document.getElementById('teamName');
+  var playersEl = document.getElementById('teamPlayers');
+  var name = nameEl.value.trim();
+  if(!name){ hint('Give the team a name first!'); nameEl.focus(); return; }
+  var exists = party.teams.some(function(t){ return t.name.toLowerCase() === name.toLowerCase(); });
+  if(exists){ hint('“' + name + '” is already on the board — pick another name.'); return; }
+  party.teams.push({
+    id: 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    name: name, players: playersEl.value.trim(), points: 0, rounds: 0, bestMs: null
+  });
+  nameEl.value = ''; playersEl.value = ''; nameEl.focus();
+  saveParty(); renderParty(); hint('');
+}
+
+function addPoints(team, input){
+  var v = parseInt(input.value, 10);
+  if(isNaN(v)){ hint('Type the round score first — negatives allowed, we know about the penalties.'); input.focus(); return; }
+  team.points += v; team.rounds += 1;
+  input.value = '';
+  saveParty(); renderParty();
+}
+
+function renameTeam(team){
+  var name = prompt('Rename team:', team.name);
+  if(name == null){ return; }
+  name = name.trim().slice(0, 28);
+  if(!name){ return; }
+  team.name = name;
+  saveParty(); renderParty();
+}
+
+function removeTeam(team){
+  if(!confirm('Remove team “' + team.name + '” and their scores?')){ return; }
+  party.teams = party.teams.filter(function(t){ return t.id !== team.id; });
+  saveParty(); renderParty();
+}
+
+function resetParty(){
+  if(!party.teams.length){ hint('Nothing to reset — the board is already empty.'); return; }
+  if(!confirm('Reset the party? This clears all teams, scores and times on this device.')){ return; }
+  party = {teams: []};
+  saveParty(); renderParty();
+}
+
+function rankedTeams(){
+  return party.teams.slice().sort(function(a, b){
+    if(b.points !== a.points){ return b.points - a.points; }
+    var at = a.bestMs == null ? Infinity : a.bestMs;
+    var bt = b.bestMs == null ? Infinity : b.bestMs;
+    if(at !== bt){ return at - bt; }
+    return a.name.localeCompare(b.name);
+  });
+}
+
+/* Rows are built with textContent only, so names can never inject markup. */
+function mk(tag, cls, text){
+  var n = document.createElement(tag);
+  if(cls){ n.className = cls; }
+  if(text != null){ n.textContent = text; }
+  return n;
+}
+
+function renderParty(){
+  var list = document.getElementById('lbList');
+  list.textContent = '';
+  var ranked = rankedTeams();
+  document.getElementById('lbEmpty').hidden = ranked.length > 0;
+  ranked.forEach(function(team, i){
+    var isTop = i === 0 && team.points > 0;
+    var row = mk('li', 'lb-row' + (isTop ? ' top' : ''));
+    row.appendChild(mk('span', 'lb-rank', String(i + 1)));
+    var who = mk('div', 'lb-who');
+    who.appendChild(mk('span', 'lb-name', (isTop ? '👑 ' : '') + team.name));
+    if(team.players){ who.appendChild(mk('span', 'lb-players', team.players)); }
+    row.appendChild(who);
+    var stats = team.points + ' pts · ' + team.rounds + (team.rounds === 1 ? ' round' : ' rounds');
+    if(team.bestMs != null){ stats += ' · best ' + fmtSecs(team.bestMs); }
+    row.appendChild(mk('span', 'lb-stats', stats));
+    var act = mk('div', 'lb-act');
+    var pts = mk('input', 'lb-pts'); pts.type = 'number'; pts.placeholder = '+pts';
+    pts.setAttribute('aria-label', 'Round score for ' + team.name);
+    pts.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ addPoints(team, pts); } });
+    var ok = mk('button', 'icobtn ok', '✓'); ok.title = 'Add round score'; ok.onclick = function(){ addPoints(team, pts); };
+    var ren = mk('button', 'icobtn', '✎'); ren.title = 'Rename team'; ren.onclick = function(){ renameTeam(team); };
+    var del = mk('button', 'icobtn del', '✕'); del.title = 'Remove team'; del.onclick = function(){ removeTeam(team); };
+    act.appendChild(pts); act.appendChild(ok); act.appendChild(ren); act.appendChild(del);
+    row.appendChild(act);
+    list.appendChild(row);
+  });
+  refreshTeamSelect('awardTeam');
+  refreshTeamSelect('watchTeam');
+  if(!party.teams.length){ document.getElementById('watchSave').hidden = true; }
+}
+
+function refreshTeamSelect(id){
+  var sel = document.getElementById(id);
+  var prev = sel.value;
+  sel.textContent = '';
+  if(!party.teams.length){
+    var o = mk('option', null, '— add a team above —'); o.value = '';
+    sel.appendChild(o);
+    return;
+  }
+  rankedTeams().forEach(function(t){
+    var o = mk('option', null, t.name); o.value = t.id;
+    sel.appendChild(o);
+  });
+  if(prev && party.teams.some(function(t){ return t.id === prev; })){ sel.value = prev; }
+}
+
+/* ================= FILLED-IN AWARD PRINTING ================= */
+(function initAwards(){
+  var sel = document.getElementById('awardSel');
+  document.querySelectorAll('.sheet.g-certs').forEach(function(sec, i){
+    sec.id = 'award-' + i;
+    var h2 = sec.querySelector('h2');
+    var title = Array.prototype.map.call(h2.childNodes, function(n){ return n.textContent.trim(); })
+                  .filter(Boolean).join(' ');
+    var o = document.createElement('option');
+    o.value = sec.id; o.textContent = title;
+    sel.appendChild(o);
+  });
+})();
+
+function prefillAward(){
+  var sel = document.getElementById('awardTeam');
+  var team = party.teams.find(function(t){ return t.id === sel.value; });
+  if(!team){ return; }
+  var parts = (team.players || '').split(/\s*[&+,\/]\s*/).filter(Boolean);
+  document.getElementById('awardName1').value = (parts[0] || team.name).slice(0, 26);
+  document.getElementById('awardName2').value = (parts[1] || (parts[0] ? team.name : '')).slice(0, 26);
+  document.getElementById('awardStat').value = team.points ? team.points + ' pts' : '';
+}
+
+function setFillText(fill, text){
+  if(!fill){ return; }
+  var af = fill.querySelector('.af');
+  if(!af){ af = mk('span', 'af'); fill.appendChild(af); }
+  af.textContent = text;
+}
+
+function printAward(){
+  var sec = document.getElementById(document.getElementById('awardSel').value);
+  if(!sec){ return; }
+  var fills = sec.querySelectorAll('.names .fill');
+  setFillText(fills[0], document.getElementById('awardName1').value.trim());
+  if(fills[1]){ setFillText(fills[1], document.getElementById('awardName2').value.trim()); }
+  var stat = document.getElementById('awardStat').value.trim();
+  var box = sec.querySelector('.statline .box');
+  if(box){ box.textContent = stat; box.classList.toggle('af-on', !!stat); }
+  setFillText(sec.querySelector('.signs .fill'), new Date().toLocaleDateString());
+  document.body.setAttribute('data-print', 'certone');
+  sec.classList.add('print-target');
+  window.print();
+}
+
+function cleanupAwardPrint(){
+  document.querySelectorAll('.sheet.print-target').forEach(function(sec){
+    sec.classList.remove('print-target');
+    sec.querySelectorAll('.af').forEach(function(af){ af.remove(); });
+    var box = sec.querySelector('.statline .box');
+    if(box){ box.textContent = ''; box.classList.remove('af-on'); }
+  });
+}
+
+renderParty();
+prefillAward();
 </script>
 </body>
 </html>
