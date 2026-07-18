@@ -95,33 +95,115 @@ body{
 }
 .helpbar b{color:var(--marigold);}
 
-/* ============ PARTY TIMER (screen only) ============ */
-.timerbar{
-  max-width:7.4in; margin:14px auto 0;
-  background:var(--ink); color:var(--paper);
-  border-radius:14px; padding:12px 18px;
-  display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+/* ============ GAME CONSOLE (screen only) ============ */
+.console{
+  max-width:7.4in; margin:22px auto 0;
+  background:var(--paper);
+  border:3px solid var(--ink); border-radius:20px;
+  box-shadow:0 3px 8px rgba(30,25,60,.25), 0 14px 34px rgba(30,25,60,.28);
+  padding:20px 22px 18px;
 }
-.timerbar .tb-title{font-family:var(--display); font-size:16px; letter-spacing:.5px; text-shadow:2px 2px 0 var(--pool);}
-.timerbar label{font-size:12.5px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; display:flex; align-items:center; gap:5px;}
-.timerbar input{
-  width:58px; font-family:var(--body); font-weight:800; font-size:14px; text-align:center;
-  color:var(--ink); background:var(--paper); border:2px solid var(--paper); border-radius:8px; padding:4px 2px;
+.console h2{font-family:var(--display); font-size:24px; letter-spacing:.4px;}
+.con-sub{font-size:13px; line-height:1.55; margin:5px 0 16px; max-width:44em;}
+.con-label{display:block; font-weight:800; font-size:10px; letter-spacing:1.8px; text-transform:uppercase; opacity:.65; margin-bottom:7px;}
+.con-grid{display:flex; flex-wrap:wrap; gap:16px 30px; align-items:flex-start;}
+.chiprow{display:flex; flex-wrap:wrap; gap:7px;}
+.chip{
+  font-family:var(--body); font-weight:800; font-size:12px; letter-spacing:.3px;
+  background:#fff; color:var(--ink);
+  border:2.5px solid var(--ink); border-radius:999px; padding:7px 13px; cursor:pointer;
+  transition:transform .08s ease;
 }
-.timerbar button{
+.chip:hover{transform:translateY(-1px);}
+.chip:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
+.chip[aria-pressed="true"]{color:#fff; border-color:transparent;}
+.chip[data-level="1"][aria-pressed="true"]{background:var(--pool);}
+.chip[data-level="2"][aria-pressed="true"]{background:var(--marigold);}
+.chip[data-level="3"][aria-pressed="true"]{background:var(--poppy);}
+.chip[data-level="0"][aria-pressed="true"]{background:var(--ink);}
+.pacerow{display:flex; gap:14px;}
+.pacerow label{display:flex; align-items:center; gap:6px; font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase;}
+.pacerow input{
+  width:62px; font-family:var(--body); font-weight:800; font-size:15px; text-align:center;
+  color:var(--ink); background:#fff; border:2.5px solid var(--ink); border-radius:9px; padding:6px 2px;
+}
+.con-actions{display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; align-items:center;}
+.btn-go{
+  font-family:var(--display); font-size:17px; letter-spacing:.5px;
+  color:#fff; background:var(--poppy); border:3px solid var(--poppy); border-radius:999px;
+  padding:9px 22px 11px; cursor:pointer; transition:transform .08s ease, filter .12s ease;
+}
+.btn-go:hover{filter:brightness(1.07); transform:translateY(-1px);}
+.btn-alt{
   font-family:var(--body); font-weight:800; font-size:12.5px; letter-spacing:.4px; text-transform:uppercase;
-  color:#fff; background:var(--pool); border:2px solid var(--pool); border-radius:999px;
-  padding:7px 16px; cursor:pointer;
+  color:var(--ink); background:#fff; border:2.5px solid var(--ink); border-radius:999px;
+  padding:9px 16px; cursor:pointer;
 }
-.timerbar button:hover{filter:brightness(1.1);}
-.timerbar button:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
-.tb-phase{font-size:12.5px; font-weight:700; flex:1; min-width:150px;}
+.btn-alt:hover{background:var(--ink-soft);}
+.btn-go:focus-visible,.btn-alt:focus-visible,.fo-btn:focus-visible,.fo-close:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
+.con-status{
+  margin-top:16px; background:var(--ink); color:var(--paper); border-radius:13px;
+  padding:10px 16px; display:flex; align-items:center; gap:14px;
+}
+.con-status .msg{flex:1; font-size:13px; font-weight:700; line-height:1.4;}
 .tb-clock{
-  font-family:var(--display); font-size:30px; min-width:86px; text-align:center;
+  font-family:var(--display); font-size:28px; min-width:84px; text-align:center;
   background:var(--paper); color:var(--ink); border-radius:10px; padding:1px 12px 3px;
 }
 .tb-clock[data-phase="peek"]{color:var(--pool);}
 .tb-clock[data-phase="draw"]{color:var(--poppy);}
+
+/* printing tips */
+.tips{max-width:7.4in; margin:14px auto 0; color:var(--ink);}
+.tips summary{
+  cursor:pointer; display:inline-block; font-weight:800; font-size:12px; letter-spacing:.6px; text-transform:uppercase;
+  background:var(--paper); border:2.5px solid var(--ink); border-radius:999px; padding:7px 15px;
+}
+.tips summary:hover{background:var(--marigold-soft);}
+.tips .inner{
+  background:var(--paper); border:2.5px dashed var(--ink); border-radius:14px;
+  padding:13px 17px; margin-top:9px; font-size:13px; line-height:1.6;
+}
+.tips .inner b{background:var(--marigold-soft); padding:0 4px; border-radius:4px;}
+
+/* card-flash overlay */
+.flash-overlay{
+  position:fixed; inset:0; z-index:100; background:rgba(24,22,50,.94);
+  display:flex; align-items:center; justify-content:center; padding:16px;
+}
+.flash-overlay[hidden]{display:none;}
+.fo-inner{
+  width:min(560px,100%); max-height:96vh; overflow:auto;
+  background:var(--paper); border:3px solid var(--ink); border-radius:22px;
+  padding:16px 18px; display:flex; flex-direction:column; gap:11px;
+}
+.fo-top{display:flex; justify-content:space-between; align-items:center;}
+.fo-tag{font-family:var(--display); font-size:16px; letter-spacing:.5px;}
+.fo-close{
+  background:none; border:2.5px solid var(--ink); border-radius:50%;
+  width:34px; height:34px; font-weight:800; font-size:14px; cursor:pointer; color:var(--ink);
+}
+.fo-close:hover{background:var(--poppy-soft);}
+.fo-stage{
+  background:#fff; border:3px solid var(--ink); border-radius:16px;
+  display:flex; align-items:center; justify-content:center; min-height:230px; overflow:hidden;
+}
+.fo-stage svg{width:min(72vw,370px); height:auto; max-height:50vh; stroke:var(--ink); stroke-width:4.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+.fo-big{font-size:84px; line-height:1; padding:30px 0;}
+.fo-bottom{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+.fo-msg{flex:1; min-width:180px; font-weight:800; font-size:13.5px; line-height:1.45;}
+.fo-count{
+  font-family:var(--display); font-size:40px; min-width:92px; text-align:center;
+  background:var(--ink); color:#fff; border-radius:14px; padding:2px 12px 6px;
+}
+.fo-count[data-phase="peek"]{background:var(--pool);}
+.fo-count[data-phase="draw"]{background:var(--poppy);}
+.fo-btn{
+  font-family:var(--display); font-size:15px; letter-spacing:.4px;
+  color:#fff; background:var(--pool); border:none; border-radius:999px;
+  padding:9px 18px 11px; cursor:pointer;
+}
+.fo-btn:hover{filter:brightness(1.08);}
 
 /* ============ SHARED PARTS ============ */
 .eyebrow{
@@ -375,27 +457,70 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
 
 <!-- ================= TOOLBAR (screen only) ================= -->
 <nav class="toolbar no-print" aria-label="Print controls">
-  <span class="brand">SHAPE SHOUT! · Party Print Kit</span>
-  <button class="primary" onclick="printKit()">🖨 Print everything</button>
+  <span class="brand">SHAPE SHOUT!</span>
+  <button class="primary" onclick="printKit()">🖨 Print all</button>
   <button onclick="printKit('posters')">Posters</button>
   <button onclick="printKit('score')">Scorecards</button>
-  <button onclick="printKit('cards')">Shape cards</button>
-  <button onclick="printKit('book')">Open book</button>
-  <button onclick="printKit('certs')">Certificates</button>
+  <button onclick="printKit('cards')">Cards</button>
+  <button onclick="printKit('book')">Open Book</button>
+  <button onclick="printKit('certs')">Awards</button>
 </nav>
-<div class="helpbar no-print">
-  <b>Printing tips:</b> use Letter or A4 at 100% scale and turn on <b>“Background graphics.”</b>
-  Print the <b>shape cards on cardstock</b> (marker lines show through thin paper), cut along the dashed guides,
-  and print <b>two copies of the Open Book</b> per table — one for the Guide, one for the Artist. Everything also prints fine in black &amp; white.
-</div>
 
-<div class="timerbar no-print" role="group" aria-label="Party timer">
-  <span class="tb-title">⏱ PARTY TIMER</span>
-  <label for="peekSecs">Peek <input id="peekSecs" type="number" min="3" max="120" value="10"> s</label>
-  <label for="drawSecs">Draw <input id="drawSecs" type="number" min="10" max="600" value="60"> s</label>
-  <button id="timerBtn" onclick="toggleTimer()">▶ Start round</button>
-  <span class="tb-phase" id="timerPhase">Your house rules — set any times you like (classic: 10 &amp; 60).</span>
-  <span class="tb-clock" id="timerClock">—</span>
+<section class="console no-print" aria-label="Play a round">
+  <h2>⚡ Play a round right here</h2>
+  <p class="con-sub">Pick a difficulty and your pace, then <b>Flash a card</b>: the screen shows the Guide a secret card
+  for the peek, runs the draw countdown, and reveals the card at the end for scoring. Using printed cards instead? Use <b>Timer only</b>.</p>
+  <div class="con-grid">
+    <div>
+      <span class="con-label" id="levelLabel">Difficulty</span>
+      <div class="chiprow" id="levelChips" role="group" aria-labelledby="levelLabel">
+        <button class="chip" data-level="1" aria-pressed="true" onclick="setLevel(1)">Level 1 · Warm-up</button>
+        <button class="chip" data-level="2" aria-pressed="false" onclick="setLevel(2)">Level 2 · Standard</button>
+        <button class="chip" data-level="3" aria-pressed="false" onclick="setLevel(3)">Level 3 · Expert</button>
+        <button class="chip" data-level="0" aria-pressed="false" onclick="setLevel(0)">🎲 Surprise me</button>
+      </div>
+    </div>
+    <div>
+      <span class="con-label">Your pace — house rules (classic: 10 &amp; 60)</span>
+      <div class="pacerow">
+        <label for="peekSecs">Peek <input id="peekSecs" type="number" min="3" max="120" value="10"> s</label>
+        <label for="drawSecs">Draw <input id="drawSecs" type="number" min="10" max="600" value="60"> s</label>
+      </div>
+    </div>
+  </div>
+  <div class="con-actions">
+    <button class="btn-go" onclick="startFlashRound()">▶ FLASH A CARD &amp; PLAY</button>
+    <button class="btn-alt" id="timerBtn" onclick="toggleTimer()">⏱ Timer only</button>
+  </div>
+  <div class="con-status">
+    <span class="msg" id="timerPhase">Ready when you are. Guides look at the screen alone — Artists, eyes on your pad!</span>
+    <span class="tb-clock" id="timerClock">—</span>
+  </div>
+</section>
+
+<details class="tips no-print">
+  <summary>🖨 Printing tips</summary>
+  <div class="inner">
+    Use Letter or A4 at <b>100% scale</b> and turn on <b>“Background graphics.”</b>
+    Print the <b>shape cards on cardstock</b> (marker lines show through thin paper), cut along the dashed guides,
+    and print <b>two copies of the Open Book</b> per table — one for the Guide, one for the Artist.
+    Everything also prints fine in black &amp; white.
+  </div>
+</details>
+
+<div class="flash-overlay no-print" id="flashOverlay" role="dialog" aria-modal="true" aria-label="Card flash round" hidden>
+  <div class="fo-inner">
+    <div class="fo-top">
+      <span class="fo-tag" id="foTag">CARD</span>
+      <button class="fo-close" onclick="endFlashRound()" aria-label="Close round">✕</button>
+    </div>
+    <div class="fo-stage" id="foStage"></div>
+    <div class="fo-bottom">
+      <span class="fo-msg" id="foMsg"></span>
+      <button class="fo-btn" id="foAgain" onclick="startFlashRound()" hidden>▶ New card</button>
+      <span class="fo-count" id="foCount">—</span>
+    </div>
+  </div>
 </div>
 
 <!-- ================= POSTER 1: MAIN ================= -->
@@ -808,6 +933,132 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
   </div>
 </section>
 
+<!-- ================= CERTIFICATE 5 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><path d="M18,62 A32,32 0 0 1 82,62 Z"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><rect x="16" y="16" width="68" height="68"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><path d="M14,72 Q50,10 86,72"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/></svg>
+    </div>
+    <div class="presents">Shape Shout! proudly presents</div>
+    <h2 class="overprint gold">THE ABSTRACT<br>ARTIST</h2>
+    <div class="subtitle t2">★ Boldest Interpretation ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for a drawing that matched the original card in <b>spirit</b> — if not in shape, size, position, or number of shapes. The vibe vote was low. The artistic courage was <b>immense</b>. True art is never understood in its own time.</p>
+    <div class="statline">Vibe score <span class="box"></span></div>
+    <span class="stamp" style="color:var(--marigold); margin-bottom:.24in">IT’S ART, OKAY?</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 6 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><polyline points="12,70 31,34 50,70 69,34 88,70"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><ellipse cx="50" cy="50" rx="38" ry="24"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><line x1="12" y1="50" x2="88" y2="50"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><polygon points="50,14 14,86 86,86"/></svg>
+    </div>
+    <div class="presents">Shape Shout! breathlessly presents</div>
+    <h2 class="overprint teal">THE MARATHON<br>MOUTH</h2>
+    <div class="subtitle t1">★ Most Words Per Minute ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for the Guide who did not stop talking for <b>one single second</b> of the draw phase — a torrent of circles, corners and mid-page edges delivered at <b>auctioneer speed</b>, while somehow also drawing. Doctors are baffled. The Artist is exhausted.</p>
+    <div class="statline">Rounds survived <span class="box"></span></div>
+    <span class="stamp" style="color:var(--pool); margin-bottom:.24in">NEVER INHALED</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 7 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><line x1="50" y1="12" x2="50" y2="88"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><circle cx="50" cy="50" r="18"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><polygon points="50,10 90,50 50,90 10,50"/></svg>
+    </div>
+    <div class="presents">Shape Shout! at full volume presents</div>
+    <h2 class="overprint">THE QUESTION<br>CANNON</h2>
+    <div class="subtitle t3">★ Most Questions Fired ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for the Artist who interrogated their way to glory: <b>“HOW BIG?!”</b>, <b>“TOUCHING WHAT?!”</b>, <b>“WHOSE LEFT?!”</b> — living proof that in Shape Shout! there are no silly questions, only unanswered ones.</p>
+    <div class="statline">Questions fired <span class="box"></span></div>
+    <span class="stamp" style="color:var(--poppy); margin-bottom:.24in">ASKED &amp; ANSWERED</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 8 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><polygon points="50,14 14,86 86,86"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><path d="M14,72 Q50,10 86,72"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><polygon points="18,12 82,12 50,60"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><rect x="16" y="16" width="68" height="68"/></svg>
+    </div>
+    <div class="presents">Shape Shout! against all odds presents</div>
+    <h2 class="overprint gold">THE COMEBACK<br>KIDS</h2>
+    <div class="subtitle t2">★ Biggest Glow-Up ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for the team whose early rounds were — kindly put — <b>abstract</b>, and whose final round left the room speechless. The night’s <b>biggest round-to-round score jump</b>. Growth mindset? Growth <b>masterpiece</b>.</p>
+    <div class="statline">Points gained <span class="box"></span></div>
+    <span class="stamp" style="color:var(--marigold); margin-bottom:.24in">LEFT FOR DEAD · CAME BACK</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 9 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><circle cx="50" cy="50" r="16"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><circle cx="50" cy="50" r="5" style="fill:var(--ink)"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><line x1="14" y1="50" x2="86" y2="50"/></svg>
+    </div>
+    <div class="presents">Shape Shout! with great respect presents</div>
+    <h2 class="overprint teal">THE EAGLE<br>EYE</h2>
+    <div class="subtitle t1">★ Sharpest Judge ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Judge</i></span></div>
+    <p class="flavor">for the judge who heard <b>every single forbidden word</b> — the whispered “roof,” the disguised “sn— shape-man,” the microscopic “sun.” Nothing escapes The Eagle Eye. Guides fear them. The scorecard <b>respects</b> them.</p>
+    <div class="statline">Forbidden words caught <span class="box"></span></div>
+    <span class="stamp" style="color:var(--pool); margin-bottom:.24in">HEARS EVERYTHING</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 10 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><line x1="14" y1="80" x2="86" y2="20"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="40"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><line x1="14" y1="50" x2="86" y2="50"/></svg>
+    </div>
+    <div class="presents">Shape Shout! calmly presents</div>
+    <h2 class="overprint">THE STEADY<br>HAND</h2>
+    <div class="subtitle t3">★ Coolest Under Chaos ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for drawing calm, confident, <b>committed</b> lines while a teammate screamed geometry from behind a barrier. No hesitation, no shaky circles, no regret — remember, <b>erasing is illegal</b>, and this Artist never once needed it.</p>
+    <div class="statline">Hesitations detected <span class="box"></span></div>
+    <span class="stamp" style="color:var(--ink); margin-bottom:.24in">NO UNDO · NO FEAR</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
 <!-- ================= FOOTER (screen only) ================= -->
 <footer class="sitefoot no-print">
   <div class="sf-inner">
@@ -821,7 +1072,7 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
       <li><a href="pdf/2-scorecards.pdf" download>✏️ Team scorecards</a></li>
       <li><a href="pdf/3-shape-cards.pdf" download>🃏 Shape cards (18)</a></li>
       <li><a href="pdf/4-open-book.pdf" download>📖 The Open Book chart</a></li>
-      <li><a href="pdf/5-certificates.pdf" download>🏆 Award certificates (4)</a></li>
+      <li><a href="pdf/5-certificates.pdf" download>🏆 Award certificates (10)</a></li>
     </ul>
     <p class="sf-meta">Open source under the MIT License ·
       <a href="https://github.com/devkushgowda/shape-shout-party-kit" rel="noopener">View on GitHub</a> ·
@@ -843,8 +1094,21 @@ window.addEventListener('afterprint', function(){ document.body.removeAttribute(
   if(p){ document.body.setAttribute('data-print', p); }
 })();
 
-/* ---- Party timer: peek phase, then draw phase, with beeps ---- */
-var timerId = null;
+/* ---- Game console: difficulty picker, card flash, and timers ---- */
+var game = {level:1, mode:null, timerId:null, used:{}, deck:[]};
+
+(function buildDeck(){
+  document.querySelectorAll('.g-cards').forEach(function(sec){
+    var lv = sec.classList.contains('lv1') ? 1 : sec.classList.contains('lv2') ? 2 : 3;
+    sec.querySelectorAll('.shapecard').forEach(function(card){
+      game.deck.push({
+        level: lv,
+        id: card.querySelector('.id').textContent,
+        svg: card.querySelector('svg').outerHTML
+      });
+    });
+  });
+})();
 
 function beep(freq, dur, times){
   try{
@@ -859,7 +1123,7 @@ function beep(freq, dur, times){
       g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
       o.start(t); o.stop(t + dur + 0.05);
     }
-  }catch(e){ /* no audio available — timer still works silently */ }
+  }catch(e){ /* no audio available — timers still work silently */ }
 }
 
 function readSecs(id, fallback){
@@ -869,39 +1133,110 @@ function readSecs(id, fallback){
   return v;
 }
 
-function toggleTimer(){
-  if(timerId){ stopTimer('Stopped — set your times and go again!'); return; }
-  runPhase('peek');
+function setLevel(n){
+  game.level = n;
+  document.querySelectorAll('#levelChips .chip').forEach(function(c){
+    c.setAttribute('aria-pressed', String(parseInt(c.getAttribute('data-level'), 10) === n));
+  });
 }
 
-function stopTimer(msg){
-  clearInterval(timerId); timerId = null;
-  document.getElementById('timerBtn').textContent = '▶ Start round';
-  document.getElementById('timerPhase').textContent = msg;
-  var clock = document.getElementById('timerClock');
-  clock.textContent = '—'; clock.removeAttribute('data-phase');
+/* Deal without repeats until the chosen pool is exhausted, then reshuffle. */
+function drawFromDeck(){
+  var pool = game.deck.filter(function(c){ return game.level === 0 || c.level === game.level; });
+  var used = game.used[game.level] || (game.used[game.level] = []);
+  var fresh = pool.filter(function(c){ return used.indexOf(c.id) < 0; });
+  if(!fresh.length){ used.length = 0; fresh = pool; }
+  var card = fresh[Math.floor(Math.random() * fresh.length)];
+  used.push(card.id);
+  return card;
 }
 
-function runPhase(phase){
-  var left = phase === 'peek' ? readSecs('peekSecs', 10) : readSecs('drawSecs', 60);
-  var clock = document.getElementById('timerClock');
-  document.getElementById('timerBtn').textContent = '■ Stop';
-  document.getElementById('timerPhase').textContent =
-    phase === 'peek' ? 'PEEK! Guide, study that card…' : 'DRAW & SHOUT! Shapes only!';
-  clock.setAttribute('data-phase', phase);
-  beep(phase === 'peek' ? 660 : 880, 0.15, 1);
+function clearTick(){ if(game.timerId){ clearInterval(game.timerId); game.timerId = null; } }
+
+function runCountdown(secs, el, phase, onDone){
+  clearTick();
+  var left = secs;
+  el.setAttribute('data-phase', phase);
   var tick = function(){
-    clock.textContent = left + 's';
+    el.textContent = left + 's';
     if(left <= 3 && left > 0){ beep(1200, 0.06, 1); }
-    if(left <= 0){
-      clearInterval(timerId); timerId = null;
-      if(phase === 'peek'){ runPhase('draw'); }
-      else { beep(440, 0.4, 3); stopTimer('MARKERS DOWN! Flip the card and compare. 🎉'); }
-    }
+    if(left <= 0){ clearTick(); onDone(); return; }
     left--;
   };
   tick();
-  timerId = setInterval(tick, 1000);
+  game.timerId = setInterval(tick, 1000);
+}
+
+function setStatus(t){ document.getElementById('timerPhase').textContent = t; }
+function setMsg(t){ document.getElementById('foMsg').textContent = t; }
+
+/* Flash round: peek the card on screen, hide it for the draw, reveal to score. */
+function startFlashRound(){
+  if(game.mode === 'timer'){ stopTimer(''); }
+  clearTick();
+  game.mode = 'flash';
+  var card = drawFromDeck();
+  var stage = document.getElementById('foStage');
+  var count = document.getElementById('foCount');
+  document.getElementById('foTag').textContent = card.id + ' · LEVEL ' + card.level;
+  document.getElementById('foAgain').hidden = true;
+  document.getElementById('flashOverlay').hidden = false;
+  document.body.style.overflow = 'hidden';
+  stage.innerHTML = card.svg;
+  setMsg('GUIDE ONLY — memorize the shapes, sizes and positions!');
+  beep(660, 0.15, 1);
+  runCountdown(readSecs('peekSecs', 10), count, 'peek', function(){
+    stage.innerHTML = '<div class="fo-big">🗣️ ✏️</div>';
+    setMsg('DRAW & SHOUT! Shapes only — real-world words cost a point.');
+    beep(880, 0.18, 2);
+    runCountdown(readSecs('drawSecs', 60), count, 'draw', function(){
+      stage.innerHTML = card.svg;
+      setMsg('MARKERS DOWN! Line up all three drawings and score it — this was ' + card.id + '.');
+      count.textContent = '🎉';
+      count.removeAttribute('data-phase');
+      document.getElementById('foAgain').hidden = false;
+      beep(440, 0.4, 3);
+    });
+  });
+}
+
+function endFlashRound(){
+  clearTick();
+  game.mode = null;
+  document.getElementById('flashOverlay').hidden = true;
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && !document.getElementById('flashOverlay').hidden){ endFlashRound(); }
+});
+
+/* Timer only, for tables playing with printed cards. */
+function toggleTimer(){
+  if(game.mode === 'timer'){ stopTimer('Stopped — set your pace and go again!'); return; }
+  if(game.mode === 'flash'){ endFlashRound(); }
+  game.mode = 'timer';
+  document.getElementById('timerBtn').textContent = '■ Stop timer';
+  var clock = document.getElementById('timerClock');
+  setStatus('PEEK! Guide, study that card…');
+  beep(660, 0.15, 1);
+  runCountdown(readSecs('peekSecs', 10), clock, 'peek', function(){
+    setStatus('DRAW & SHOUT! Shapes only!');
+    beep(880, 0.18, 2);
+    runCountdown(readSecs('drawSecs', 60), clock, 'draw', function(){
+      beep(440, 0.4, 3);
+      stopTimer('MARKERS DOWN! Flip the card, compare, score. 🎉');
+    });
+  });
+}
+
+function stopTimer(msg){
+  clearTick();
+  game.mode = null;
+  document.getElementById('timerBtn').textContent = '⏱ Timer only';
+  var clock = document.getElementById('timerClock');
+  clock.textContent = '—'; clock.removeAttribute('data-phase');
+  if(msg){ setStatus(msg); }
 }
 </script>
 </body>

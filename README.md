@@ -16,6 +16,8 @@ Perfect for families, classrooms, youth groups, office team events, and game nig
 
 Timing is a **house rule**: write your chosen peek and draw times on the poster, or use the **⏱ party timer** built into the website — set any times you like and it runs the peek phase and draw phase back-to-back with beeps.
 
+You can even **play fully on screen**: pick a difficulty level (or 🎲 Surprise me) and hit **Flash a card** — the website deals a random secret card, flashes it for the Guide during the peek, hides it for the draw countdown, then reveals it at the end for scoring. Cards don't repeat until the whole level has been played.
+
 ## 🖨 What's in the kit
 
 | Piece | What it's for |
@@ -24,7 +26,7 @@ Timing is a **house rule**: write your chosen peek and draw times on the poster,
 | 18 shape cards | 3 difficulty levels (3 / 4 / 5 elements per card) |
 | Team scorecards | 4 rounds per card, 2 cards per page |
 | The Open Book | The shared 18-shape dictionary — print 2 per table |
-| 4 award certificates | Champions, precision, people's choice… and most penalties 😅 |
+| 10 award certificates | Champions, precision, people's choice, sharpest judge, boldest interpretation… and most penalties 😅 |
 
 ## 🚀 Two ways to print
 
