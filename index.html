@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shape Shout! — Free Printable Party Game Kit</title>
+<meta name="description" content="Shape Shout! is a free printable party game for all ages: one player memorizes a secret picture, then draws it while shouting geometric instructions — real-world words are forbidden. Print the posters, shape cards, scorecards and certificates, and play with any group.">
+<meta name="theme-color" content="#26264F">
+<link rel="canonical" href="https://devkushgowda.github.io/shape-shout-party-kit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shape Shout! — Free Printable Party Game Kit">
+<meta property="og:description" content="A free print-and-play party game for families, classrooms, youth groups and game nights. One peek, one voice, two pads — and real-world words are strictly illegal.">
+<meta property="og:url" content="https://devkushgowda.github.io/shape-shout-party-kit/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shape Shout! — Free Printable Party Game Kit">
+<meta name="twitter:description" content="A free print-and-play party game for families, classrooms, youth groups and game nights.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='6' y='6' width='88' height='88' rx='18' fill='%2326264F'/%3E%3Ccircle cx='36' cy='40' r='15' fill='%2300A5A0'/%3E%3Cpolygon points='68,24 84,55 52,55' fill='%23FFB100'/%3E%3Crect x='30' y='62' width='40' height='16' fill='%23FF4438'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Karla:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --paper:#FDF8EE;        /* cream stock */
+  --ink:#26264F;          /* riso blue-black */
+  --poppy:#FF4438;        /* riso red  — Level 3 */
+  --pool:#00A5A0;         /* riso teal — Level 1 */
+  --marigold:#FFB100;     /* riso gold — Level 2 */
+  --poppy-soft:#FFE3E0;
+  --pool-soft:#DDF3F2;
+  --marigold-soft:#FFF0CC;
+  --ink-soft:#E7E6F0;
+  --display:'Lilita One', 'Arial Black', sans-serif;
+  --body:'Karla', 'Helvetica Neue', Arial, sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+body{
+  font-family:var(--body);
+  color:var(--ink);
+  background:#B9B4C7;
+  background-image:radial-gradient(#a39dbb 1.1px, transparent 1.1px);
+  background-size:18px 18px;
+}
+
+/* ============ SHEETS (print-preview pages) ============ */
+.sheet{
+  width:7.4in;
+  margin:26px auto;
+  background:var(--paper);
+  padding:0.3in;
+  box-shadow:0 3px 8px rgba(30,25,60,.25), 0 14px 34px rgba(30,25,60,.28);
+  position:relative;
+  overflow:hidden;
+}
+.sheet.full{height:10in;}
+@media (max-width:760px){
+  body{padding:0 6px;}
+  .sheet{width:100%; padding:14px;}
+  .sheet.full{height:auto; min-height:9in;}
+}
+
+/* ============ TOOLBAR (screen only) ============ */
+.toolbar{
+  position:sticky; top:0; z-index:50;
+  background:var(--ink);
+  color:var(--paper);
+  padding:12px 18px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+  box-shadow:0 4px 14px rgba(20,16,45,.45);
+}
+.toolbar .brand{
+  font-family:var(--display);
+  font-size:20px; letter-spacing:.5px;
+  margin-right:auto;
+  text-shadow:2px 2px 0 var(--poppy);
+}
+.toolbar button{
+  font-family:var(--body); font-weight:800; font-size:12.5px;
+  letter-spacing:.4px; text-transform:uppercase;
+  color:var(--ink); background:var(--paper);
+  border:2px solid var(--paper); border-radius:999px;
+  padding:7px 14px; cursor:pointer;
+  transition:transform .08s ease, background .12s ease;
+}
+.toolbar button:hover{background:var(--marigold); border-color:var(--marigold); transform:translateY(-1px);}
+.toolbar button:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
+.toolbar button.primary{background:var(--poppy); border-color:var(--poppy); color:#fff;}
+.toolbar button.primary:hover{background:#ff5d52;}
+.helpbar{
+  max-width:7.4in; margin:18px auto 0;
+  background:var(--ink); color:var(--paper);
+  border-radius:14px; padding:14px 18px;
+  font-size:13px; line-height:1.55;
+}
+.helpbar b{color:var(--marigold);}
+
+/* ============ SHARED PARTS ============ */
+.eyebrow{
+  font-weight:800; font-size:10.5px; letter-spacing:2.2px; text-transform:uppercase;
+}
+.stamp{
+  display:inline-block;
+  font-family:var(--display);
+  border:3px solid currentColor; border-radius:10px;
+  padding:2px 10px 3px;
+  transform:rotate(-2deg);
+  letter-spacing:.5px;
+}
+.overprint{  /* signature: misregistered riso overprint */
+  font-family:var(--display);
+  line-height:.94;
+  letter-spacing:.5px;
+  color:var(--ink);
+  text-shadow:4px 4px 0 var(--poppy);
+}
+.overprint.teal{text-shadow:4px 4px 0 var(--pool);}
+.overprint.gold{text-shadow:4px 4px 0 var(--marigold);}
+.cutline{
+  border:none;
+  border-top:2.5px dashed var(--ink);
+  position:relative; opacity:.85;
+  margin:.12in 0;
+}
+.cutline::before{
+  content:"✂"; position:absolute; left:8px; top:-11px;
+  background:var(--paper); padding:0 5px; font-size:15px; color:var(--ink);
+}
+.pageno{
+  position:absolute; bottom:.12in; right:.3in;
+  font-size:9.5px; font-weight:800; letter-spacing:1.6px; text-transform:uppercase; opacity:.55;
+}
+svg.draw{stroke:var(--ink); stroke-width:7; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+
+/* ============ POSTERS ============ */
+.poster{height:100%; display:flex; flex-direction:column; gap:.16in;}
+.ribbon{
+  display:flex; justify-content:space-between; align-items:center;
+  border-top:3.5px solid var(--ink); border-bottom:3.5px solid var(--ink);
+  padding:6px 2px; font-weight:800; font-size:11px; letter-spacing:2px; text-transform:uppercase;
+}
+.hero{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:.14in;}
+.hero .kicker{font-weight:800; letter-spacing:3px; text-transform:uppercase; font-size:13px; color:var(--poppy);}
+.hero h1{font-size:92px;}
+.hero .sub{font-size:17px; font-weight:700; max-width:5.6in; line-height:1.45;}
+.confetti{display:flex; gap:14px; align-items:center; justify-content:center;}
+.badge3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:.14in;}
+.bigfact{
+  border:3.5px solid var(--ink); border-radius:16px; background:#fff;
+  padding:.12in; text-align:center;
+}
+.bigfact .n{font-family:var(--display); font-size:40px; line-height:1;}
+.bigfact .l{font-weight:800; font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase; margin-top:4px;}
+.bigfact.c1 .n{color:var(--pool);} .bigfact.c2 .n{color:var(--marigold);} .bigfact.c3 .n{color:var(--poppy);}
+.matstrip{
+  background:var(--ink); color:var(--paper); border-radius:16px;
+  padding:.14in .2in; display:flex; justify-content:space-between; align-items:center; gap:12px;
+  font-weight:700; font-size:13px;
+}
+.matstrip b{color:var(--marigold);}
+.footline{display:flex; justify-content:space-between; font-size:10.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; opacity:.7;}
+
+/* how-to-play */
+.phases{display:flex; flex-direction:column; gap:.13in; flex:1;}
+.phase{
+  display:grid; grid-template-columns:.85in 1fr; gap:.16in; align-items:center;
+  border:3px solid var(--ink); border-radius:16px; background:#fff; padding:.11in .16in;
+}
+.phase .ico{
+  width:.85in; height:.85in; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--display); font-size:26px; color:#fff;
+}
+.phase h3{font-family:var(--display); font-size:19px; letter-spacing:.4px; margin-bottom:2px;}
+.phase p{font-size:12.5px; line-height:1.45;}
+.phase p b{background:var(--marigold-soft); padding:0 4px; border-radius:4px;}
+.scoretable{width:100%; border-collapse:collapse; background:#fff;}
+.scoretable th,.scoretable td{border:2.5px solid var(--ink); padding:6px 9px; font-size:11.5px; line-height:1.35; text-align:left;}
+.scoretable th{font-family:var(--display); font-weight:400; letter-spacing:.5px; font-size:12.5px; background:var(--ink); color:var(--paper);}
+.scoretable td b{white-space:nowrap;}
+
+/* golden rule */
+.split{display:grid; grid-template-columns:1fr 1fr; gap:.18in; flex:1;}
+.panel{border:3.5px solid var(--ink); border-radius:18px; padding:.16in; display:flex; flex-direction:column; gap:.1in; background:#fff;}
+.panel.bad{background:var(--poppy-soft);}
+.panel.good{background:var(--pool-soft);}
+.panel .mark{font-family:var(--display); font-size:44px; line-height:1;}
+.panel.bad .mark{color:var(--poppy);} .panel.good .mark{color:var(--pool);}
+.panel h3{font-family:var(--display); font-size:21px;}
+.say{
+  background:#fff; border:2.5px solid var(--ink); border-radius:12px;
+  padding:7px 11px; font-size:12.5px; font-weight:700; line-height:1.4; position:relative;
+}
+.panel.bad .say{text-decoration:line-through; text-decoration-color:var(--poppy); text-decoration-thickness:2.5px;}
+.penaltybar{
+  background:var(--poppy); color:#fff; border-radius:16px; text-align:center;
+  padding:.12in; font-family:var(--display); font-size:19px; letter-spacing:.5px;
+}
+.penaltybar small{display:block; font-family:var(--body); font-weight:700; font-size:11.5px; letter-spacing:.4px; margin-top:3px;}
+
+/* ============ SCORECARDS ============ */
+.scorecard{border:3.5px solid var(--ink); border-radius:18px; background:#fff; padding:.14in .16in; break-inside:avoid;}
+.sc-head{display:flex; align-items:flex-end; gap:.16in; margin-bottom:.1in;}
+.sc-head .t{font-family:var(--display); font-size:21px; white-space:nowrap;}
+.sc-head .t span{color:var(--poppy);}
+.fill{border-bottom:2.5px solid var(--ink); flex:1; height:1.35em; position:relative;}
+.fill i{position:absolute; left:0; bottom:-15px; font-style:normal; font-size:9px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; opacity:.6;}
+table.sc{width:100%; border-collapse:collapse;}
+table.sc th, table.sc td{border:2px solid var(--ink); font-size:10.5px; padding:5px 6px; text-align:center; height:.34in;}
+table.sc th{background:var(--ink-soft); font-weight:800; text-transform:uppercase; letter-spacing:.6px; font-size:9px; line-height:1.25;}
+table.sc td.rd{font-family:var(--display); font-size:14px; width:.5in;}
+table.sc .blank{color:transparent;}
+.vv{display:flex; gap:4px; justify-content:center;}
+.vv span{width:17px; height:17px; border:2px solid var(--ink); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9.5px; font-weight:800;}
+tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
+.sc-key{margin-top:.09in; font-size:9.6px; line-height:1.5;}
+.sc-key b{text-transform:uppercase; letter-spacing:.5px;}
+.grand{
+  display:flex; align-items:center; gap:10px; margin-top:.08in;
+  font-family:var(--display); font-size:15px;
+}
+.grand .box{width:1.1in; height:.42in; border:3px solid var(--ink); border-radius:10px; background:var(--marigold-soft);}
+
+/* ============ SHAPE CARDS ============ */
+.sechead{display:flex; align-items:center; gap:.14in; margin-bottom:.12in;}
+.sechead .note{font-size:11px; font-weight:700; line-height:1.4;}
+.lvpill{
+  font-family:var(--display); color:#fff; border-radius:999px; padding:5px 16px 6px; font-size:16px;
+  white-space:nowrap; letter-spacing:.5px;
+}
+.lv1 .lvpill, .lvpill.lv1{background:var(--pool);}
+.lv2 .lvpill, .lvpill.lv2{background:var(--marigold);}
+.lv3 .lvpill, .lvpill.lv3{background:var(--poppy);}
+.cardgrid{display:grid; grid-template-columns:1fr 1fr; gap:.15in;}
+.shapecard{border:3.5px solid var(--ink); border-radius:14px; overflow:hidden; background:#fff; break-inside:avoid;}
+.shapecard header{display:flex; justify-content:space-between; align-items:center; padding:4px 11px 5px; color:#fff;}
+.shapecard.lv1 header{background:var(--pool);}
+.shapecard.lv2 header{background:var(--marigold);}
+.shapecard.lv3 header{background:var(--poppy);}
+.shapecard header .id{font-family:var(--display); font-size:14px; letter-spacing:.5px;}
+.shapecard header .el{font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase;}
+.shapecard .art{padding:.05in .1in .09in; display:flex; justify-content:center;}
+.shapecard svg{height:2.28in; width:100%;}
+@media (max-width:760px){ .cardgrid{grid-template-columns:1fr;} .shapecard svg{height:auto; aspect-ratio:1;} }
+
+/* ============ OPEN BOOK ============ */
+.bookhead{text-align:center; margin-bottom:.1in;}
+.bookhead h2{font-size:34px;}
+.bookhead p{font-size:11.5px; font-weight:700; margin-top:4px;}
+.bookhead p b{background:var(--marigold-soft); padding:0 5px; border-radius:4px;}
+.bk-label{
+  font-family:var(--display); font-size:13.5px; letter-spacing:.6px; margin:.1in 0 .06in;
+  display:flex; align-items:center; gap:8px;
+}
+.bk-label::after{content:""; flex:1; border-top:2.5px dashed var(--ink); opacity:.5;}
+.booktiles{display:grid; grid-template-columns:repeat(6,1fr); gap:.08in;}
+.tile{border:2.5px solid var(--ink); border-radius:11px; background:#fff; text-align:center; padding:5px 3px 6px; break-inside:avoid;}
+.tile svg{height:.5in; width:100%;}
+.tile .nm{font-size:8.6px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; margin-top:2px; line-height:1.15;}
+.sizes{display:flex; align-items:flex-end; justify-content:space-around; border:2.5px solid var(--ink); border-radius:12px; background:#fff; padding:8px 10px 9px;}
+.sz{display:flex; flex-direction:column; align-items:center; gap:5px; font-size:9px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; text-align:center;}
+.sz .dot{border:3.5px solid var(--ink); border-radius:50%;}
+.bk-bottom{display:grid; grid-template-columns:2.45in 1fr; gap:.15in; align-items:stretch;}
+.posmap{border:3px solid var(--ink); border-radius:12px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr 1fr; grid-auto-rows:1fr; background:#fff; min-height:2.7in;}
+.posmap div{border:1.2px solid var(--ink); display:flex; align-items:center; justify-content:center; text-align:center; font-size:8.4px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; padding:3px; line-height:1.3;}
+.posmap div.center{background:var(--marigold-soft); font-family:var(--display); font-size:11px; letter-spacing:.6px;}
+.reltiles{display:grid; grid-template-columns:1fr 1fr; gap:.08in;}
+.rel{border:2.5px solid var(--ink); border-radius:11px; background:#fff; display:flex; align-items:center; gap:8px; padding:4px 8px;}
+.rel svg{width:.78in; height:.44in; flex:none;}
+.rel .nm{font-size:9.3px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; line-height:1.25;}
+.saypro{
+  margin-top:.12in; background:var(--ink); color:var(--paper); border-radius:14px;
+  padding:.1in .16in; font-size:11.5px; font-weight:700; line-height:1.5;
+}
+.saypro b{color:var(--marigold);}
+
+/* ============ CERTIFICATES ============ */
+.cert{
+  height:100%; background:#fff;
+  border:4px solid var(--ink); border-radius:6px;
+  position:relative; padding:.55in .45in .45in;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.cert::before{
+  content:""; position:absolute; inset:.14in;
+  border:2.5px dashed var(--ink); border-radius:4px; opacity:.55; pointer-events:none;
+}
+.cert .shrow{display:flex; gap:16px; margin-bottom:.22in;}
+.cert .shrow svg{width:.42in; height:.42in;}
+.cert .presents{font-weight:800; letter-spacing:3px; text-transform:uppercase; font-size:11px;}
+.cert h2{font-size:52px; margin:.1in 0 .05in;}
+.cert .subtitle{font-family:var(--display); font-size:16px; letter-spacing:.6px; margin-bottom:.22in;}
+.cert .to{font-weight:800; letter-spacing:2.4px; text-transform:uppercase; font-size:10.5px; margin-bottom:.16in;}
+.cert .names{width:5.6in; display:flex; gap:.3in; align-items:flex-end; margin-bottom:.05in;}
+.cert .names .amp{font-family:var(--display); font-size:26px; line-height:1;}
+.cert .flavor{max-width:5.4in; font-size:13px; line-height:1.6; margin:.18in 0 auto;}
+.cert .flavor b{background:var(--marigold-soft); padding:0 4px; border-radius:4px;}
+.cert .statline{font-weight:800; font-size:11px; letter-spacing:.6px; text-transform:uppercase; margin-bottom:.24in;}
+.cert .statline .box{display:inline-block; width:.9in; height:.34in; border:2.5px solid var(--ink); border-radius:8px; vertical-align:middle; margin-left:8px;}
+.cert .signs{width:5.8in; display:flex; gap:.5in; margin-bottom:.1in;}
+.cert .subtitle.t1{color:var(--pool);} .cert .subtitle.t2{color:var(--marigold);} .cert .subtitle.t3{color:var(--poppy);}
+
+/* ============ FOOTER (screen only) ============ */
+.sitefoot{
+  background:var(--ink); color:var(--paper);
+  margin-top:34px; padding:34px 18px 40px;
+}
+.sf-inner{max-width:7.4in; margin:0 auto; line-height:1.6; font-size:14px;}
+.sf-inner h2{font-family:var(--display); font-size:26px; letter-spacing:.5px; margin-bottom:8px; text-shadow:2px 2px 0 var(--poppy);}
+.sf-inner h3{font-family:var(--display); font-size:16px; letter-spacing:.5px; margin:18px 0 8px; color:var(--marigold);}
+.sf-downloads{list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px;}
+.sf-downloads a{
+  display:block; background:rgba(255,255,255,.08); border:2px solid rgba(255,255,255,.25);
+  border-radius:10px; padding:8px 12px; color:var(--paper); text-decoration:none; font-weight:700;
+  transition:background .12s ease, border-color .12s ease;
+}
+.sf-downloads a:hover{background:var(--poppy); border-color:var(--poppy);}
+.sf-downloads a:focus-visible{outline:3px solid var(--marigold); outline-offset:2px;}
+.sf-meta{margin-top:20px; font-size:12.5px; opacity:.9;}
+.sf-meta a{color:var(--marigold); font-weight:700;}
+
+/* ============ PRINT ============ */
+@page{margin:0.45in;}
+@media print{
+  body{background:#fff; padding:0;}
+  .no-print{display:none !important;}
+  .sheet{
+    box-shadow:none; margin:0 auto;
+    break-after:page; page-break-after:always;
+  }
+  .sheet:last-of-type{break-after:auto; page-break-after:auto;}
+  /* per-section printing */
+  body[data-print] .sheet{display:none !important;}
+  body[data-print="posters"] .sheet.g-posters{display:block !important;}
+  body[data-print="score"]   .sheet.g-score{display:block !important;}
+  body[data-print="cards"]   .sheet.g-cards{display:block !important;}
+  body[data-print="book"]    .sheet.g-book{display:block !important;}
+  body[data-print="certs"]   .sheet.g-certs{display:block !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOOLBAR (screen only) ================= -->
+<nav class="toolbar no-print" aria-label="Print controls">
+  <span class="brand">SHAPE SHOUT! · Party Print Kit</span>
+  <button class="primary" onclick="printKit()">🖨 Print everything</button>
+  <button onclick="printKit('posters')">Posters</button>
+  <button onclick="printKit('score')">Scorecards</button>
+  <button onclick="printKit('cards')">Shape cards</button>
+  <button onclick="printKit('book')">Open book</button>
+  <button onclick="printKit('certs')">Certificates</button>
+</nav>
+<div class="helpbar no-print">
+  <b>Printing tips:</b> use Letter or A4 at 100% scale and turn on <b>“Background graphics.”</b>
+  Print the <b>shape cards on cardstock</b> (marker lines show through thin paper), cut along the dashed guides,
+  and print <b>two copies of the Open Book</b> per table — one for the Guide, one for the Artist. Everything also prints fine in black &amp; white.
+</div>
+
+<!-- ================= POSTER 1: MAIN ================= -->
+<section class="sheet full g-posters">
+  <div class="poster">
+    <div class="ribbon"><span>Game night original</span><span>2 players per team</span><span>Ages 8 → 108</span></div>
+    <div class="hero">
+      <div class="confetti">
+        <svg class="draw" width="46" height="46" viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" style="stroke:var(--pool)"/></svg>
+        <svg class="draw" width="46" height="46" viewBox="0 0 100 100"><polygon points="50,12 12,88 88,88" style="stroke:var(--marigold)"/></svg>
+        <svg class="draw" width="46" height="46" viewBox="0 0 100 100"><rect x="14" y="14" width="72" height="72" style="stroke:var(--poppy)"/></svg>
+        <svg class="draw" width="46" height="46" viewBox="0 0 100 100"><polygon points="50,8 92,50 50,92 8,50"/></svg>
+      </div>
+      <div class="kicker">One peek · one voice · two pads</div>
+      <h1 class="overprint">SHAPE<br>SHOUT!</h1>
+      <p class="sub">The blind-drawing showdown where one of you memorizes a secret picture, then draws it <em>while shouting instructions</em> — and real-world words are strictly illegal.</p>
+      <span class="stamp" style="color:var(--poppy)">NO “HOUSE.” NO “ICE CREAM.” SHAPES ONLY.</span>
+    </div>
+    <div class="badge3">
+      <div class="bigfact c1"><div class="n">10<span style="font-size:22px">s</span></div><div class="l">to memorize the card</div></div>
+      <div class="bigfact c2"><div class="n">60<span style="font-size:22px">s</span></div><div class="l">to draw &amp; shout it</div></div>
+      <div class="bigfact c3"><div class="n">−1</div><div class="l">per forbidden word</div></div>
+    </div>
+    <div class="matstrip">
+      <span>YOU’LL NEED → <b>2 pads</b> · <b>2 markers</b> (no erasing — commit!) · <b>1 barrier</b> or back-to-back chairs · <b>1 timer</b> · a room full of judges</span>
+    </div>
+    <div class="footline"><span>Poster 1 of 3</span><span>Hang me where the shouting happens</span></div>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Poster</div>
+</section>
+
+<!-- ================= POSTER 2: HOW TO PLAY ================= -->
+<section class="sheet full g-posters">
+  <div class="poster">
+    <div class="ribbon"><span>How to play</span><span class="overprint" style="font-size:15px; text-shadow:2px 2px 0 var(--poppy)">SHAPE SHOUT!</span><span>Read me out loud</span></div>
+    <div class="phases">
+      <div class="phase">
+        <div class="ico" style="background:var(--ink)">1</div>
+        <div><h3>Pair up &amp; wall off</h3>
+        <p>Each team is a <b>Guide</b> and an <b>Artist</b>, sitting back-to-back or with a barrier between the pads. From this moment on, <b>you never peek at each other’s paper</b>. Markers up.</p></div>
+      </div>
+      <div class="phase">
+        <div class="ico" style="background:var(--pool)">2</div>
+        <div><h3>The 10-second peek</h3>
+        <p>The room goes silent. The Guide flips the top shape card and gets <b>exactly 10 seconds</b> to study it — not just the shapes, but the <b>positions</b>: centered or offset? Touching or overlapping? Then the card goes face-down. No second looks. Ever.</p></div>
+      </div>
+      <div class="phase">
+        <div class="ico" style="background:var(--marigold)">3</div>
+        <div><h3>The 60-second chaos</h3>
+        <p>Timer starts. The Guide <b>draws the picture from memory</b> on their own pad <b>while shouting step-by-step instructions</b>. The Artist draws only what they hear — questions allowed (“HOW BIG IS THE CIRCLE?!”), peeking never.</p></div>
+      </div>
+      <div class="phase">
+        <div class="ico" style="background:var(--poppy)">4</div>
+        <div><h3>Markers down &amp; reveal</h3>
+        <p>At the buzzer, both markers drop. Flip the card and line up all three: the <b>original</b>, the <b>Guide’s drawing</b>, and the <b>Artist’s drawing</b>. Prepare to be humbled.</p></div>
+      </div>
+      <div class="phase">
+        <div class="ico" style="background:var(--ink)">5</div>
+        <div><h3>Score it &amp; swap</h3>
+        <p>Score with the table below, then <b>swap roles every round</b> so both of you get to suffer equally. Highest grand total after the final round takes the Telepathy Trophy.</p></div>
+      </div>
+    </div>
+    <table class="scoretable">
+      <tr><th style="width:1.55in">Category</th><th>How it works</th><th style="width:1.05in">Points</th></tr>
+      <tr><td><b>Guide’s memory</b></td><td>Each element the Guide drew correctly on their own pad (right shape, right place).</td><td><b>+1 each</b></td></tr>
+      <tr><td><b>Precision</b></td><td>Each element on the Artist’s pad that matches the Guide’s pad — did the words work?</td><td><b>+1 each</b></td></tr>
+      <tr><td><b>Vibe vote</b></td><td>The room compares the Artist’s drawing to the original card and rates it.</td><td><b>1–5</b></td></tr>
+      <tr><td><b>Penalties</b></td><td>Every real-world word the Guide blurts out (“house!”, “sun!”, “roof!”).</td><td><b>−1 each</b></td></tr>
+    </table>
+    <div class="footline"><span>Poster 2 of 3</span><span>Swap roles every round</span></div>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Rules</div>
+</section>
+
+<!-- ================= POSTER 3: THE GOLDEN RULE ================= -->
+<section class="sheet full g-posters">
+  <div class="poster">
+    <div class="ribbon"><span>The golden rule</span><span>Zero real-world words</span><span>The room is listening</span></div>
+    <div style="text-align:center; padding:.05in 0 .02in">
+      <h2 class="overprint" style="font-size:44px">SAY THE SHAPE,<br>NOT THE THING.</h2>
+    </div>
+    <div class="split">
+      <div class="panel bad">
+        <div class="mark">✗</div>
+        <h3>Forbidden</h3>
+        <p style="font-size:11.5px; font-weight:700">Real-world analogies. Your brain will beg. Do not listen.</p>
+        <div class="say">“Draw a house with a chimney.”</div>
+        <div class="say">“It’s an ice cream cone!”</div>
+        <div class="say">“Make a smiley face at the bottom.”</div>
+        <div class="say">“Like a lollipop… a tree… a SNOWMAN!”</div>
+      </div>
+      <div class="panel good">
+        <div class="mark">✓</div>
+        <h3>Allowed</h3>
+        <p style="font-size:11.5px; font-weight:700">Pure geometric &amp; positional language. Only the Open Book.</p>
+        <div class="say">“Large square, dead center of the page.”</div>
+        <div class="say">“Triangle on top, sharing the square’s top edge.”</div>
+        <div class="say">“Circle inside, touching all four sides.”</div>
+        <div class="say">“Line from the bottom-left corner, diagonally down.”</div>
+      </div>
+    </div>
+    <div class="penaltybar">EVERY SLIP = −1 POINT<small>Judges: keep a tally. Guides: fight your own brain. That’s the game.</small></div>
+    <div class="footline"><span>Poster 3 of 3</span><span>Both players may use the Open Book chart at all times</span></div>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Golden Rule</div>
+</section>
+
+<!-- ================= SCORECARDS ================= -->
+<section class="sheet g-score">
+  <div class="sechead">
+    <span class="lvpill" style="background:var(--ink)">OFFICIAL SCORECARD</span>
+    <span class="note">Two per page — cut along the dashed line. One card per team covers four rounds. <b>Round total = memory + precision + vibe − penalties.</b></span>
+  </div>
+
+  <div class="scorecard">
+    <div class="sc-head">
+      <span class="t">SHAPE SHOUT<span>!</span></span>
+      <span class="fill"><i>Team name</i></span>
+      <span class="fill" style="max-width:1.5in"><i>Players</i></span>
+    </div>
+    <table class="sc">
+      <tr>
+        <th style="width:.5in">Round</th><th style="width:.6in">Card #</th>
+        <th>Guide’s memory<br>(+1 / element)</th><th>Precision<br>(+1 / match)</th>
+        <th style="width:1.35in">Vibe vote</th><th>Penalties<br>(−1 / word)</th><th style="width:.85in">Round total</th>
+      </tr>
+      <tr><td class="rd">1</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+      <tr><td class="rd">2</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+      <tr><td class="rd">3</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+      <tr><td class="rd">4</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+    </table>
+    <div class="grand"><span>GRAND TOTAL →</span><span class="box"></span><span style="font-family:var(--body); font-size:9.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; opacity:.65">Swap Guide ↔ Artist every round</span></div>
+    <p class="sc-key"><b>Memory:</b> shapes the Guide got right on their own pad, vs. the card. · <b>Precision:</b> shapes on the Artist’s pad that match the Guide’s pad. · <b>Vibe:</b> the room rates the Artist’s drawing against the original, 1–5. · <b>Penalties:</b> tally every forbidden real-world word.</p>
+  </div>
+
+  <hr class="cutline">
+
+  <div class="scorecard">
+    <div class="sc-head">
+      <span class="t">SHAPE SHOUT<span>!</span></span>
+      <span class="fill"><i>Team name</i></span>
+      <span class="fill" style="max-width:1.5in"><i>Players</i></span>
+    </div>
+    <table class="sc">
+      <tr>
+        <th style="width:.5in">Round</th><th style="width:.6in">Card #</th>
+        <th>Guide’s memory<br>(+1 / element)</th><th>Precision<br>(+1 / match)</th>
+        <th style="width:1.35in">Vibe vote</th><th>Penalties<br>(−1 / word)</th><th style="width:.85in">Round total</th>
+      </tr>
+      <tr><td class="rd">1</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+      <tr><td class="rd">2</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+      <tr><td class="rd">3</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+      <tr><td class="rd">4</td><td></td><td class="blank">.</td><td class="blank">.</td><td><div class="vv"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></td><td></td><td></td></tr>
+    </table>
+    <div class="grand"><span>GRAND TOTAL →</span><span class="box"></span><span style="font-family:var(--body); font-size:9.5px; font-weight:800; letter-spacing:1px; text-transform:uppercase; opacity:.65">Swap Guide ↔ Artist every round</span></div>
+    <p class="sc-key"><b>Memory:</b> shapes the Guide got right on their own pad, vs. the card. · <b>Precision:</b> shapes on the Artist’s pad that match the Guide’s pad. · <b>Vibe:</b> the room rates the Artist’s drawing against the original, 1–5. · <b>Penalties:</b> tally every forbidden real-world word.</p>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Scorecards</div>
+</section>
+
+<!-- ================= SHAPE CARDS · LEVEL 1 ================= -->
+<section class="sheet g-cards lv1">
+  <div class="sechead">
+    <span class="lvpill">LEVEL 1 · WARM-UP</span>
+    <span class="note"><b>Fair deal:</b> every Level 1 card has exactly <b>3 elements</b> of matched difficulty — max 3 memory + 3 precision + 5 vibe. Print on cardstock, cut on the borders, keep the deck face-down.</span>
+  </div>
+  <div class="cardgrid">
+    <div class="shapecard lv1"><header><span class="id">CARD 1A</span><span class="el">3 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="60" y="60" width="80" height="80"/><circle cx="100" cy="100" r="40"/><line x1="60" y1="140" x2="24" y2="176"/>
+      </svg></div></div>
+    <div class="shapecard lv1"><header><span class="id">CARD 1B</span><span class="el">3 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <circle cx="100" cy="103" r="55"/><polygon points="100,48 52.4,130.5 147.6,130.5"/><rect x="87" y="22" width="26" height="26"/>
+      </svg></div></div>
+    <div class="shapecard lv1"><header><span class="id">CARD 1C</span><span class="el">3 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <polygon points="100,42 40,152 160,152"/><line x1="26" y1="112" x2="174" y2="112"/><circle cx="100" cy="29" r="13"/>
+      </svg></div></div>
+    <div class="shapecard lv1"><header><span class="id">CARD 1D</span><span class="el">3 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="40" y="70" width="120" height="60"/><line x1="100" y1="45" x2="100" y2="155"/><circle cx="100" cy="100" r="40"/>
+      </svg></div></div>
+    <div class="shapecard lv1"><header><span class="id">CARD 1E</span><span class="el">3 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <polygon points="100,42 160,102 100,162 40,102"/><circle cx="100" cy="102" r="18"/><line x1="100" y1="42" x2="100" y2="12"/>
+      </svg></div></div>
+    <div class="shapecard lv1"><header><span class="id">CARD 1F</span><span class="el">3 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <path d="M45,108 A55,55 0 0 1 155,108 Z"/><rect x="72" y="108" width="56" height="56"/><circle cx="100" cy="136" r="16"/>
+      </svg></div></div>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Cards L1</div>
+</section>
+
+<!-- ================= SHAPE CARDS · LEVEL 2 ================= -->
+<section class="sheet g-cards lv2">
+  <div class="sechead">
+    <span class="lvpill">LEVEL 2 · STANDARD</span>
+    <span class="note"><b>Fair deal:</b> every Level 2 card has exactly <b>4 elements</b> of matched difficulty — max 4 memory + 4 precision + 5 vibe. Warning: several of these are engineered traps. Do <b>not</b> say “house.”</span>
+  </div>
+  <div class="cardgrid">
+    <div class="shapecard lv2"><header><span class="id">CARD 2A</span><span class="el">4 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="55" y="85" width="90" height="90"/><polygon points="55,85 145,85 100,32"/><circle cx="100" cy="128" r="15"/><line x1="100" y1="143" x2="100" y2="175"/>
+      </svg></div></div>
+    <div class="shapecard lv2"><header><span class="id">CARD 2B</span><span class="el">4 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="50"/><line x1="22" y1="100" x2="178" y2="100"/><polygon points="78,50 122,50 100,22"/><polygon points="78,150 122,150 100,178"/>
+      </svg></div></div>
+    <div class="shapecard lv2"><header><span class="id">CARD 2C</span><span class="el">4 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <polygon points="68,112 132,112 100,180"/><circle cx="100" cy="82" r="30"/><circle cx="100" cy="36" r="16"/><line x1="52" y1="138" x2="148" y2="138"/>
+      </svg></div></div>
+    <div class="shapecard lv2"><header><span class="id">CARD 2D</span><span class="el">4 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="88" y="100" width="24" height="68"/><circle cx="100" cy="66" r="34"/><polygon points="100,48 84,80 116,80"/><polyline points="30,184 52,168 74,184 96,168 118,184 140,168 162,184"/>
+      </svg></div></div>
+    <div class="shapecard lv2"><header><span class="id">CARD 2E</span><span class="el">4 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <circle cx="78" cy="92" r="38"/><circle cx="122" cy="92" r="38"/><line x1="100" y1="38" x2="100" y2="146"/><polygon points="80,156 120,156 100,186"/>
+      </svg></div></div>
+    <div class="shapecard lv2"><header><span class="id">CARD 2F</span><span class="el">4 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="34" y="34" width="34" height="34"/><circle cx="100" cy="100" r="20"/><polygon points="165,136 148,166 182,166"/><line x1="26" y1="26" x2="178" y2="178"/>
+      </svg></div></div>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Cards L2</div>
+</section>
+
+<!-- ================= SHAPE CARDS · LEVEL 3 ================= -->
+<section class="sheet g-cards lv3">
+  <div class="sechead">
+    <span class="lvpill">LEVEL 3 · EXPERT</span>
+    <span class="note"><b>Fair deal:</b> every Level 3 card has exactly <b>5 elements</b> of matched difficulty — max 5 memory + 5 precision + 5 vibe. For finals, tiebreakers, or duos who are annoyingly good at this.</span>
+  </div>
+  <div class="cardgrid">
+    <div class="shapecard lv3"><header><span class="id">CARD 3A</span><span class="el">5 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <circle cx="100" cy="104" r="60"/><rect x="58" y="62" width="84" height="84"/><polygon points="100,70 64,138 136,138"/><circle cx="100" cy="120" r="13"/><line x1="100" y1="44" x2="100" y2="14"/>
+      </svg></div></div>
+    <div class="shapecard lv3"><header><span class="id">CARD 3B</span><span class="el">5 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <polygon points="100,42 40,152 160,152"/><circle cx="100" cy="42" r="13"/><circle cx="40" cy="152" r="13"/><circle cx="160" cy="152" r="13"/><line x1="24" y1="180" x2="176" y2="180"/>
+      </svg></div></div>
+    <div class="shapecard lv3"><header><span class="id">CARD 3C</span><span class="el">5 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="45" y="48" width="110" height="110"/><line x1="45" y1="48" x2="155" y2="158"/><circle cx="126" cy="76" r="19"/><polygon points="70,118 56,144 84,144"/><rect x="122" y="24" width="24" height="24"/>
+      </svg></div></div>
+    <div class="shapecard lv3"><header><span class="id">CARD 3D</span><span class="el">5 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="55" y="32" width="90" height="40"/><path d="M55,72 A45,45 0 0 0 145,72 Z"/><line x1="85" y1="32" x2="85" y2="72"/><line x1="115" y1="32" x2="115" y2="72"/><circle cx="100" cy="126" r="22"/>
+      </svg></div></div>
+    <div class="shapecard lv3"><header><span class="id">CARD 3E</span><span class="el">5 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <circle cx="100" cy="104" r="56"/><polygon points="100,48 156,104 100,160 44,104"/><line x1="44" y1="104" x2="14" y2="104"/><line x1="156" y1="104" x2="186" y2="104"/><polygon points="84,48 116,48 100,20"/>
+      </svg></div></div>
+    <div class="shapecard lv3"><header><span class="id">CARD 3F</span><span class="el">5 elements</span></header>
+      <div class="art"><svg class="draw" style="stroke-width:4.5" viewBox="0 0 200 200">
+        <rect x="24" y="86" width="30" height="30"/><circle cx="100" cy="101" r="15"/><polygon points="161,86 146,116 176,116"/><line x1="12" y1="101" x2="188" y2="101"/><circle cx="100" cy="101" r="33"/>
+      </svg></div></div>
+  </div>
+  <div class="pageno">Shape Shout! Kit — Cards L3</div>
+</section>
+
+<!-- ================= THE OPEN BOOK ================= -->
+<section class="sheet g-book">
+  <div class="bookhead">
+    <h2 class="overprint gold">THE OPEN BOOK</h2>
+    <p>The official shared dictionary. <b>Both players keep a copy face-up at all times</b> — same words for everyone, so nobody wins on vocabulary. If it isn’t on this page, don’t say it.</p>
+  </div>
+
+  <div class="bk-label">The shapes</div>
+  <div class="booktiles">
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><circle cx="50" cy="35" r="24"/></svg><div class="nm">Circle</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><ellipse cx="50" cy="35" rx="32" ry="18"/></svg><div class="nm">Oval</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><path d="M20,48 A30,30 0 0 1 80,48 Z"/></svg><div class="nm">Semicircle</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><rect x="28" y="13" width="44" height="44"/></svg><div class="nm">Square</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><rect x="16" y="20" width="68" height="32"/></svg><div class="nm">Rectangle</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polygon points="50,8 84,35 50,62 16,35"/></svg><div class="nm">Diamond</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polygon points="50,10 18,60 82,60"/></svg><div class="nm">Triangle<br>point up</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polygon points="18,12 82,12 50,60"/></svg><div class="nm">Triangle<br>point down</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><line x1="14" y1="35" x2="86" y2="35"/></svg><div class="nm">Straight line</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><line x1="20" y1="58" x2="80" y2="12"/></svg><div class="nm">Diagonal line</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><polyline points="12,52 30,20 48,52 66,20 84,52"/></svg><div class="nm">Zigzag</div></div>
+    <div class="tile"><svg class="draw" style="stroke-width:6" viewBox="0 0 100 70"><path d="M14,52 Q50,2 86,52"/></svg><div class="nm">Curved line</div></div>
+  </div>
+
+  <div class="bk-label">The sizes</div>
+  <div class="sizes">
+    <div class="sz"><span class="dot" style="width:.26in;height:.26in"></span>Small<br><span style="opacity:.6">≈ a coin (1 in)</span></div>
+    <div class="sz"><span class="dot" style="width:.48in;height:.48in"></span>Medium<br><span style="opacity:.6">≈ a fist (2–3 in)</span></div>
+    <div class="sz"><span class="dot" style="width:.78in;height:.78in"></span>Large<br><span style="opacity:.6">≈ half the page (4 in +)</span></div>
+    <div class="sz" style="max-width:1.7in; text-align:left; align-items:flex-start"><span style="font-size:9.5px; line-height:1.5; text-transform:none; letter-spacing:0; font-weight:700">Guides: call the size <em>every time</em>. Your “square” is 2 inches. Theirs is 6. That ruins everything.</span></div>
+  </div>
+
+  <div class="bk-label">The page map &amp; the relationships</div>
+  <div class="bk-bottom">
+    <div>
+      <div class="posmap">
+        <div>Top-left corner</div><div>Top-center</div><div>Top-right corner</div>
+        <div>Middle-left</div><div class="center">Dead center</div><div>Middle-right</div>
+        <div>Bottom-left corner</div><div>Bottom-center</div><div>Bottom-right corner</div>
+      </div>
+      <p style="font-size:9px; font-weight:700; margin-top:5px; line-height:1.45">Edges count too: “touching the <b>top edge</b>,” “starting at the <b>bottom-left corner</b>” — of the page <em>or</em> of a shape.</p>
+    </div>
+    <div class="reltiles">
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><rect x="24" y="7" width="42" height="40"/><circle cx="45" cy="27" r="12"/></svg><span class="nm">Inside</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><circle cx="29" cy="27" r="14"/><circle cx="57" cy="27" r="14"/></svg><span class="nm">Touching</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><circle cx="34" cy="27" r="15"/><circle cx="56" cy="27" r="15"/></svg><span class="nm">Overlapping</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><rect x="29" y="24" width="32" height="24"/><polygon points="29,24 61,24 45,5"/></svg><span class="nm">Sharing an edge</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><circle cx="45" cy="14" r="10"/><rect x="30" y="24" width="30" height="24"/></svg><span class="nm">On top of<br>(stacked)</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><circle cx="45" cy="27" r="19"/><rect x="37" y="19" width="16" height="16"/></svg><span class="nm">Centered on</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><circle cx="45" cy="27" r="15"/><line x1="12" y1="27" x2="78" y2="27"/></svg><span class="nm">Line through</span></div>
+      <div class="rel"><svg class="draw" style="stroke-width:5" viewBox="0 0 90 54"><rect x="10" y="15" width="22" height="22"/><circle cx="69" cy="26" r="12"/></svg><span class="nm">Apart /<br>separated</span></div>
+    </div>
+  </div>
+
+  <div class="saypro">SAY IT LIKE A PRO → “<b>Medium circle, dead center — touching the top edge of the large square.</b>” Every word straight off this page. Zero penalties. <em>(We almost said “chef’s kiss” — that would’ve cost us a point.)</em></div>
+  <div class="pageno">Shape Shout! Kit — The Open Book (print 2 per table)</div>
+</section>
+
+<!-- ================= CERTIFICATE 1 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><polygon points="50,14 14,86 86,86"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><rect x="16" y="16" width="68" height="68"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><polygon points="50,10 90,50 50,90 10,50"/></svg>
+    </div>
+    <div class="presents">Shape Shout! officially presents</div>
+    <h2 class="overprint">THE TELEPATHY<br>TROPHY</h2>
+    <div class="subtitle t3">★ Grand Champions ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">who, armed with a <b>10-second peek</b> and <b>60 seconds of shouting</b>, produced a drawing the entire room recognized — achieving a level of two-person telepathy that is honestly a little unsettling. Highest grand total of the night. Undisputed. Insufferable. <b>Champions.</b></p>
+    <div class="statline">Final score <span class="box"></span></div>
+    <span class="stamp" style="color:var(--poppy); margin-bottom:.24in">CERTIFIED CHAOS-PROOF</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 2 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><rect x="16" y="16" width="68" height="68"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><line x1="15" y1="85" x2="85" y2="15"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--marigold)"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><polygon points="50,14 14,86 86,86"/></svg>
+    </div>
+    <div class="presents">Shape Shout! officially presents</div>
+    <h2 class="overprint gold">THE GOLDEN<br>MARKER</h2>
+    <div class="subtitle t2">★ Precision Award ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for the night’s <b>highest communication precision</b>: what the Guide said is exactly what the Artist drew — line for line, corner for corner, circle-touching-all-four-sides for circle-touching-all-four-sides. Geometry has never been so loud, or so accurate.</p>
+    <div class="statline">Precision points <span class="box"></span></div>
+    <span class="stamp" style="color:var(--marigold); margin-bottom:.24in">SAID IT · DREW IT</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 3 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><path d="M18,62 A32,32 0 0 1 82,62 Z"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--pool)"><polygon points="50,10 90,50 50,90 10,50"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><polyline points="12,70 31,34 50,70 69,34 88,70"/></svg>
+    </div>
+    <div class="presents">Shape Shout! officially presents</div>
+    <h2 class="overprint teal">THE PEOPLE’S<br>CHOICE</h2>
+    <div class="subtitle t1">★ Best Vibe Vote ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for the Artist’s drawing the room found <b>most recognizable</b> next to the original card — a blind, shouted, no-erasing masterpiece. The judges gasped. Someone said “frame it.” The vibe vote does not lie.</p>
+    <div class="statline">Vibe score <span class="box"></span></div>
+    <span class="stamp" style="color:var(--pool); margin-bottom:.24in">GALLERY-GRADE SCRIBBLE</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATE 4 ================= -->
+<section class="sheet full g-certs">
+  <div class="cert">
+    <div class="shrow">
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><rect x="16" y="16" width="68" height="68"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><polygon points="50,14 14,86 86,86"/></svg>
+      <svg class="draw" viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/></svg>
+      <svg class="draw" viewBox="0 0 100 100" style="stroke:var(--poppy)"><line x1="15" y1="15" x2="85" y2="85"/></svg>
+    </div>
+    <div class="presents">Shape Shout! regretfully presents</div>
+    <h2 class="overprint">THE FORBIDDEN<br>TONGUE</h2>
+    <div class="subtitle t3">★ Most Penalties ★</div>
+    <div class="to">Awarded to</div>
+    <div class="names"><span class="fill"><i>Guide</i></span><span class="amp">&amp;</span><span class="fill"><i>Artist</i></span></div>
+    <p class="flavor">for bravely shouting <b>“HOUSE!”</b> when they absolutely should not have. And then <b>“ICE CREAM!”</b> And then, unbelievably, <b>“SNOWMAN!”</b> In recognition of the night’s most heroic collection of −1 penalties, and of a brain that simply refused to be fought.</p>
+    <div class="statline">Forbidden words uttered <span class="box"></span></div>
+    <span class="stamp" style="color:var(--poppy); margin-bottom:.24in">THE ROOM HEARD EVERYTHING</span>
+    <div class="signs"><span class="fill"><i>Date</i></span><span class="fill"><i>Host / head judge</i></span></div>
+  </div>
+</section>
+
+<!-- ================= FOOTER (screen only) ================= -->
+<footer class="sitefoot no-print">
+  <div class="sf-inner">
+    <h2>Free to print, play &amp; share 🎉</h2>
+    <p>Shape Shout! is a free, open-source party kit for <b>families, classrooms, youth groups, team events and game nights</b>.
+    Print it, remix it, translate it — just have fun. No sign-up, no ads, nothing to buy.</p>
+    <h3>Prefer ready-made PDFs?</h3>
+    <ul class="sf-downloads">
+      <li><a href="pdf/shape-shout-FULL-KIT.pdf" download>📦 Full kit — all 12 pages</a></li>
+      <li><a href="pdf/1-posters.pdf" download>🪧 Wall posters (3)</a></li>
+      <li><a href="pdf/2-scorecards.pdf" download>✏️ Team scorecards</a></li>
+      <li><a href="pdf/3-shape-cards.pdf" download>🃏 Shape cards (18)</a></li>
+      <li><a href="pdf/4-open-book.pdf" download>📖 The Open Book chart</a></li>
+      <li><a href="pdf/5-certificates.pdf" download>🏆 Award certificates (4)</a></li>
+    </ul>
+    <p class="sf-meta">Open source under the MIT License ·
+      <a href="https://github.com/devkushgowda/shape-shout-party-kit" rel="noopener">View on GitHub</a> ·
+      Found a bug or made a translation? <a href="https://github.com/devkushgowda/shape-shout-party-kit/issues" rel="noopener">Open an issue</a> — contributions welcome!</p>
+  </div>
+</footer>
+
+<script>
+function printKit(group){
+  if(group){ document.body.setAttribute('data-print', group); }
+  else { document.body.removeAttribute('data-print'); }
+  window.print();
+}
+window.addEventListener('afterprint', function(){ document.body.removeAttribute('data-print'); });
+</script>
+</body>
+</html>
