@@ -218,9 +218,10 @@ body{
   border:2px solid var(--ink); border-radius:8px; background:#fff; color:var(--ink); max-width:48%;
 }
 
-/* photos on certificates (populated only while printing) */
-.cert-photos{display:none;}
-.cert-photos.on{display:flex; gap:.18in; align-items:center; justify-content:center; margin-bottom:.16in;}
+/* photos on certificates — populated for printing, visible only in print
+   (fill-in state stays in the DOM while a print dialog is open, so it must
+   never show on screen) */
+.cert-photos{display:none; gap:.18in; align-items:center; justify-content:center; margin-bottom:.16in;}
 .cert-photos img{
   height:1.3in; max-width:2.2in; object-fit:cover;
   border:3px solid var(--ink); border-radius:8px;
@@ -236,12 +237,15 @@ body{
 }
 .gp-frame img{width:100%; height:100%; object-fit:cover;}
 
-/* certificate auto-fill (used when printing a single filled-in award) */
+/* certificate auto-fill — populated for printing, visible only in print */
 .fill .af{
-  position:absolute; left:0; right:0; bottom:3px; text-align:center;
+  display:none; position:absolute; left:0; right:0; bottom:3px; text-align:center;
   font-family:var(--display); font-size:17px; letter-spacing:.5px;
 }
-.statline .box.af-on{font-family:var(--display); font-size:15px; text-align:center; line-height:.32in;}
+.statline .box .af{
+  display:none; font-family:var(--display); font-size:15px;
+  text-align:center; line-height:.32in; letter-spacing:.5px;
+}
 
 /* printing tips */
 .tips{max-width:7.4in; margin:14px auto 0; color:var(--ink);}
@@ -541,4 +545,8 @@ tr.total td{background:var(--marigold-soft); font-weight:800; font-size:11.5px;}
   body[data-print="book"]    .sheet.g-book{display:block !important;}
   body[data-print="certs"]   .sheet.g-certs{display:block !important;}
   body[data-print="certone"] .sheet.print-target{display:block !important;}
+  /* certificate fill-ins render only on paper */
+  .fill .af{display:block;}
+  .statline .box .af{display:block;}
+  .cert-photos.on{display:flex;}
 }

@@ -1,15 +1,30 @@
 function printKit(group){
+  resetPrintState();
   if(group){ document.body.setAttribute('data-print', group); }
-  else { document.body.removeAttribute('data-print'); }
+  game.printPending = true;
   window.print();
 }
+
+/* Chromium fires afterprint while the preview dialog is STILL OPEN, and
+   changing any print setting (paper size, scale…) re-renders the preview
+   from the live DOM. So we must NOT clean up on afterprint — the ceremony
+   would flip to the whole site mid-dialog. Instead, print state stays in
+   the DOM (invisible on screen) and is reset at the start of the NEXT
+   print. beforeprint catches prints we didn't start (Ctrl+P / browser
+   menu) so those show the full site; the ?print= guard keeps headless
+   PDF export working, since it prints without going through printKit. */
+window.addEventListener('beforeprint', function(){
+  if(!game.printPending && !new URLSearchParams(location.search).get('print')){
+    resetPrintState();
+  }
+  game.printPending = false;
+});
 window.addEventListener('afterprint', function(){
-  document.body.removeAttribute('data-print');
-  cleanupAwardPrint();
+  game.printPending = false; /* deliberately no DOM cleanup here */
 });
 
 /* ================= GAME CONSOLE ================= */
-var game = {level:1, mode:null, timerId:null, used:{}, deck:[], watchStart:0, watchMs:0, scoreOpen:null};
+var game = {level:1, mode:null, timerId:null, used:{}, deck:[], watchStart:0, watchMs:0, scoreOpen:null, printPending:false};
 
 (function buildDeck(){
   document.querySelectorAll('.g-cards').forEach(function(sec){
@@ -549,19 +564,26 @@ function fillCertPhotos(sec, team){
   slot.classList.toggle('on', any);
 }
 
+function setBoxText(sec, text){
+  var box = sec.querySelector('.statline .box');
+  if(!box){ return; }
+  box.textContent = '';
+  if(text){ box.appendChild(mk('span', 'af', text)); }
+}
+
 function fillCertForTeam(sec, team){
   var fills = sec.querySelectorAll('.names .fill');
   var parts = (team.players || '').split(/\s*[&+,\/]\s*/).filter(Boolean);
   setFillText(fills[0], (parts[0] || team.name).slice(0, 26));
   if(fills[1]){ setFillText(fills[1], (parts[1] || (parts[0] ? team.name : '')).slice(0, 26)); }
-  var box = sec.querySelector('.statline .box');
-  if(box){ box.textContent = team.points + ' pts'; box.classList.add('af-on'); }
+  setBoxText(sec, team.points + ' pts');
   setFillText(sec.querySelector('.signs .fill'), new Date().toLocaleDateString());
   fillCertPhotos(sec, team);
 }
 
 /* Export the whole ceremony: every assigned award, then the group-picture page. */
 function printCeremony(){
+  resetPrintState();
   var targets = 0;
   awardList.forEach(function(a){
     var team = party.teams.find(function(t){ return t.id === party.awards[a.id]; });
@@ -583,6 +605,7 @@ function printCeremony(){
     return;
   }
   document.body.setAttribute('data-print', 'certone');
+  game.printPending = true;
   window.print();
 }
 
@@ -606,28 +629,31 @@ function setFillText(fill, text){
 function printAward(){
   var sec = document.getElementById(document.getElementById('awardSel').value);
   if(!sec){ return; }
+  resetPrintState();
   var fills = sec.querySelectorAll('.names .fill');
   setFillText(fills[0], document.getElementById('awardName1').value.trim());
   if(fills[1]){ setFillText(fills[1], document.getElementById('awardName2').value.trim()); }
-  var stat = document.getElementById('awardStat').value.trim();
-  var box = sec.querySelector('.statline .box');
-  if(box){ box.textContent = stat; box.classList.toggle('af-on', !!stat); }
+  setBoxText(sec, document.getElementById('awardStat').value.trim());
   setFillText(sec.querySelector('.signs .fill'), new Date().toLocaleDateString());
   var team = party.teams.find(function(t){ return t.id === document.getElementById('awardTeam').value; });
   fillCertPhotos(sec, team);
   document.body.setAttribute('data-print', 'certone');
   sec.classList.add('print-target');
+  game.printPending = true;
   window.print();
 }
 
-function cleanupAwardPrint(){
+/* Clear every trace of a previous print setup: the data-print attribute,
+   target flags, filled-in names/stats/dates, and embedded photos. */
+function resetPrintState(){
+  document.body.removeAttribute('data-print');
   document.querySelectorAll('.sheet.print-target').forEach(function(sec){
     sec.classList.remove('print-target');
-    sec.querySelectorAll('.af').forEach(function(af){ af.remove(); });
-    var box = sec.querySelector('.statline .box');
-    if(box){ box.textContent = ''; box.classList.remove('af-on'); }
-    var slot = sec.querySelector('.cert-photos');
-    if(slot){ slot.textContent = ''; slot.classList.remove('on'); }
+  });
+  document.querySelectorAll('.af').forEach(function(af){ af.remove(); });
+  document.querySelectorAll('.cert-photos').forEach(function(slot){
+    slot.textContent = '';
+    slot.classList.remove('on');
   });
   var fp = document.getElementById('finalePhoto');
   if(fp){ fp.removeAttribute('src'); }
